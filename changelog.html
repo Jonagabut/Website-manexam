@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Changelog — CBT Exam Browser</title>
+<title>Changelog — MAN 1 Exam Browser</title>
 <meta name="description" content="Riwayat lengkap semua perubahan, perbaikan bug, dan fitur baru di setiap versi CBT Exam Browser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -238,7 +238,10 @@ nav {
   font-family: 'DM Mono', monospace; font-size: 11px;
   color: var(--accent); background: rgba(102,187,106,.08);
   padding: 1px 6px; border-radius: 4px; margin-top: 4px;
-  display: inline-block;
+  display: block;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 .change-item-files {
   display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px;
@@ -294,7 +297,7 @@ footer {
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <div class="dot">🔒</div>
-      CBT Exam Browser
+      MAN 1 Exam Browser
     </a>
     <a href="index.html" class="nav-back">
       ← Kembali ke Beranda
@@ -316,15 +319,15 @@ footer {
 
     <div class="cl-summary">
       <div class="cl-sum-card">
-        <span class="cl-sum-num">5</span>
+        <span class="cl-sum-num">6</span>
         <div class="cl-sum-label">Total Versi</div>
       </div>
       <div class="cl-sum-card">
-        <span class="cl-sum-num">29</span>
+        <span class="cl-sum-num">33</span>
         <div class="cl-sum-label">Bug Fixed</div>
       </div>
       <div class="cl-sum-card">
-        <span class="cl-sum-num">83</span>
+        <span class="cl-sum-num">85</span>
         <div class="cl-sum-label">Fitur Aktif</div>
       </div>
       <div class="cl-sum-card">
@@ -353,9 +356,98 @@ footer {
   <div class="timeline">
 
     <!-- ════════════════════════════════════════════
+         v1.6.0
+    ═══════════════════════════════════════════════ -->
+    <div class="version-block latest reveal" id="v1.6.0">
+      <div class="version-dot"></div>
+      <div class="version-head">
+        <div class="version-meta">
+          <div class="version-num">v1.6.0</div>
+          <div class="version-date">February 2026 · versionCode 6</div>
+          <div class="version-title">"Button Fix & Security Hardening"</div>
+        </div>
+        <div class="version-badges">
+          <span class="v-badge v-latest">● Latest</span>
+          <span class="v-badge v-stable">Stable</span>
+        </div>
+      </div>
+
+      <div class="change-groups">
+
+        <!-- BUG FIX -->
+        <div class="change-group" data-type="fix">
+          <div class="change-group-header">
+            <span class="change-type type-fix">🔧 Bug Fix</span>
+            <span class="change-count">3 perbaikan</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">🔴</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[CRITICAL] Tombol mulai ujian tidak merespons di beberapa device</div>
+                <div class="change-item-desc">onClick listener pada tombol "Mulai Ujian" gagal terpasang karena race condition antara inisialisasi view dan binding state. Fix: pindahkan setOnClickListener ke setelah semua state siap di onResume().</div>
+                <div class="change-item-files"><span class="file-tag">ScanActivity.kt</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🟠</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[HIGH] Tombol "Kunci Layar" bisa diklik berkali-kali</div>
+                <div class="change-item-desc">Tidak ada debounce pada tombol pin layar, memungkinkan startLockTask() dipanggil duplikat dan menyebabkan IllegalStateException di beberapa ROM. Fix: disable tombol setelah tap pertama hingga status pin terkonfirmasi.</div>
+                <div class="change-item-files"><span class="file-tag">ScanActivity.kt</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🟡</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[MEDIUM] Tombol "Via Link" tidak reset setelah error validasi</div>
+                <div class="change-item-desc">Setelah URL invalid dimasukkan, dialog EditText tidak di-clear, menyebabkan kebingungan saat input ulang. Fix: reset field dan fokus setelah pesan error ditampilkan.</div>
+                <div class="change-item-files"><span class="file-tag">ScanActivity.kt</span><span class="file-tag">activity_scan.xml</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECURITY -->
+        <div class="change-group" data-type="security">
+          <div class="change-group-header">
+            <span class="change-type type-security">🔒 Security</span>
+            <span class="change-count">2 peningkatan</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">🛡️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Daftar app terlarang diperbarui — +12 package baru</div>
+                <div class="change-item-desc">Menambahkan 12 package baru ke blocklist: aplikasi AI generatif terbaru (Gemini, Copilot mobile), browser tambahan, dan tools remote access yang sebelumnya lolos deteksi.</div>
+                <div class="change-item-code">packageList.size: 50 → 62 package</div>
+                <div class="change-item-files"><span class="file-tag">SecurityService.kt</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🔐</div>
+              <div class="change-item-content">
+                <div class="change-item-title">FLAG_SECURE ditambahkan ke semua window Activity</div>
+                <div class="change-item-desc">Sebelumnya hanya ExamActivity yang memiliki FLAG_SECURE. SplashActivity, ScanActivity, dan DoneActivity sekarang juga memasang flag ini untuk mencegah screenshot dan screen recording di seluruh alur aplikasi.</div>
+                <div class="change-item-files">
+                  <span class="file-tag">SplashActivity.kt</span>
+                  <span class="file-tag">ScanActivity.kt</span>
+                  <span class="file-tag">DoneActivity.kt</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr class="version-divider">
+
+    <!-- ════════════════════════════════════════════
          v1.5.0
     ═══════════════════════════════════════════════ -->
-    <div class="version-block latest reveal" id="v1.5.0">
+    <div class="version-block reveal" id="v1.5.0">
       <div class="version-dot"></div>
       <div class="version-head">
         <div class="version-meta">
@@ -364,7 +456,6 @@ footer {
           <div class="version-title">"Multi-Device & Critical Bug Fixes"</div>
         </div>
         <div class="version-badges">
-          <span class="v-badge v-latest">● Latest</span>
           <span class="v-badge v-stable">Stable</span>
           <span class="v-badge v-major">Major Release</span>
         </div>
@@ -859,7 +950,7 @@ footer {
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-credit">CBT Exam Browser — Zona Arjun &amp; Ananda Raihan &amp; Kosong Kosong Team</div>
+    <div class="footer-credit">MAN 1 Exam Browser — Zona Arjun &amp; Ananda Raihan &amp; Kosong Kosong Team</div>
     <a href="index.html" class="footer-back">← Kembali ke Beranda</a>
   </div>
 </footer>

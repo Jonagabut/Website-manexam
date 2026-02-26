@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CBT Exam Browser — MAN 1 Lampung Barat</title>
+<title>MAN 1 Exam Browser — MAN 1 Lampung Barat</title>
 <meta name="description" content="Secure browser ujian CBT Android — screen pinning, monitor app terlarang, kamera live.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -154,86 +154,286 @@ nav.scrolled{background:rgba(6,13,7,.97)}
   .s-cell:nth-child(4){border-top:1px solid var(--ln);border-right:none}
 }
 
-/* ══ PHONES ══════════════════════════ */
-.phones-wrap{padding:52px 0 68px}
-.phones{
-  display:flex;justify-content:center;align-items:flex-end;gap:14px;flex-wrap:wrap;
+/* ══ INTERACTIVE PHONE MOCKUP ══════════ */
+.phones-wrap{padding:52px 0 72px;text-align:center}
+
+.phone-demo-outer{
+  display:inline-flex;flex-direction:column;align-items:center;gap:20px;
 }
-.ph{
-  width:172px;border-radius:24px;
-  background:var(--b1);border:1px solid var(--ln);overflow:hidden;
-  box-shadow:0 20px 56px rgba(0,0,0,.5);
-  transition:transform .28s;
+.phone-nav-row{
+  display:flex;align-items:center;gap:14px;
 }
-.ph:hover{transform:translateY(-5px)}
-.ph.mid{
-  transform:scale(1.07);
-  box-shadow:0 26px 72px rgba(0,0,0,.65),0 0 48px rgba(101,196,106,.08);
-  z-index:2;border-color:rgba(101,196,106,.14);
+.phone-nav-btn{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.04);border:1px solid var(--ln);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--s2);transition:all .18s;user-select:none;
+  flex-shrink:0;
 }
-.ph.mid:hover{transform:scale(1.07) translateY(-5px)}
-.notch{
-  height:20px;background:rgba(0,0,0,.6);
+.phone-nav-btn:hover{background:rgba(101,196,106,.1);border-color:rgba(101,196,106,.3);color:var(--hi)}
+
+/* The phone shell */
+.iphone{
+  width:220px;
+  background:#0b1a0c;
+  border-radius:36px;
+  border:1.5px solid rgba(101,196,106,.15);
+  box-shadow:0 32px 80px rgba(0,0,0,.7),0 0 0 1px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06);
+  overflow:hidden;
+  position:relative;
+}
+.iphone-notch{
+  height:28px;background:#060d07;
   display:flex;align-items:center;justify-content:center;
-  border-bottom:1px solid var(--ln);
+  border-bottom:1px solid rgba(255,255,255,.04);
+  position:relative;
 }
-.nb{width:44px;height:3px;background:rgba(255,255,255,.1);border-radius:10px}
-.ph-lbl{
-  text-align:center;padding:8px 0 0;
-  font-size:10px;color:var(--s2);letter-spacing:.03em;
+.iphone-pill{
+  width:60px;height:5px;background:rgba(255,255,255,.08);border-radius:10px;
 }
-@media(max-width:520px){
-  .ph:not(.mid){display:none}
-  .ph.mid{transform:none}
-  .ph.mid:hover{transform:translateY(-5px)}
+.iphone-time{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  font-size:8px;font-weight:600;color:rgba(255,255,255,.5);font-family:'DM Mono',monospace;
+}
+.iphone-signal{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  font-size:7px;color:rgba(255,255,255,.4);
 }
 
-/* — scan — */
-.sc{background:#0D1B0E;padding:10px;min-height:296px}
-.sc-hd{background:#1E2E20;border-radius:6px;padding:8px 10px;margin-bottom:8px;display:flex;align-items:center;gap:7px}
-.sc-logo{width:18px;height:18px;border-radius:4px;background:linear-gradient(135deg,#2E7D32,#65c46a);flex-shrink:0}
-.sc-ht{flex:1}.sc-ht .a{font-size:7px;font-weight:700;color:#fff;line-height:1}.sc-ht .b{font-size:5.5px;color:#65c46a}
-.sc-ver{font-size:5.5px;color:#4a6a4c;background:#162318;padding:2px 5px;border-radius:3px}
-.sc-sec{font-size:5.5px;color:#4a6a4c;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;padding:0 1px}
-.sc-pan{background:#162318;border-radius:5px;overflow:hidden;margin-bottom:7px}
-.sc-row{display:flex;align-items:center;padding:5px 8px;border-bottom:1px solid #0D1B0E;font-size:6.5px}
-.sc-row:last-child{border-bottom:none}
-.sc-row .l{flex:1;color:#9ab59b}.sc-row .v{font-family:monospace}
-.vg{color:#65c46a}.vy{color:#f9a825}
-.sc-hint{background:#1b2c1d;border-radius:5px;padding:5px 8px;font-size:6px;color:#f9a825;margin-bottom:8px}
-.sc-btn{background:#2E7D32;border-radius:5px;padding:7px;text-align:center;font-size:7px;font-weight:700;color:#fff;margin-bottom:4px}
-.sc-btn2{border:1px solid #1a2e1c;background:#162318;border-radius:5px;padding:5px;text-align:center;font-size:6.5px;color:#9ab59b;margin-bottom:4px}
+/* Screen container with slide transitions */
+.screen-viewport{
+  width:100%;
+  height:420px;
+  overflow:hidden;
+  position:relative;
+}
+.screen-track{
+  display:flex;
+  width:400%;
+  height:100%;
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+}
+.app-screen{
+  width:25%;
+  height:100%;
+  flex-shrink:0;
+  overflow-y:auto;
+  scrollbar-width:none;
+}
+.app-screen::-webkit-scrollbar{display:none}
 
-/* — exam — */
-.ex{background:#0D1B0E;min-height:296px;display:flex;flex-direction:column}
-.ex-bar{background:#162318;padding:5px 8px;display:flex;align-items:center;gap:5px}
-.ex-bar .n{flex:1}.ex-bar .n .a{font-size:6.5px;font-weight:700;color:#fff}.ex-bar .n .b{font-size:5px;color:#65c46a}
-.ex-bar .t .a{font-size:5.5px;color:#4a6a4c}.ex-bar .t .b{font-family:monospace;font-size:10px;font-weight:700;color:#fff}
-.ex-meta{font-size:5.5px;color:#65c46a;margin-left:4px;line-height:1.4}
-.ex-fin{background:#2E7D32;color:#fff;font-size:5.5px;padding:2px 6px;border-radius:3px;font-weight:700;margin-left:3px}
-.ex-wv{background:#f1f3f4;flex:1;position:relative}
-.ex-fh{background:#fff;padding:6px 9px;border-bottom:1px solid #e0e0e0}
-.ex-fh .a{font-size:7px;font-weight:600;color:#202124}.ex-fh .b{font-size:5.5px;color:#5f6368}
-.ex-fb{padding:7px 9px}
-.ex-q{font-size:6.5px;font-weight:500;color:#202124;margin-bottom:5px}
-.ex-o{display:flex;align-items:center;gap:4px;padding:2px 0;font-size:6px;color:#3c4043}
-.ex-r{width:7px;height:7px;border-radius:50%;border:1.5px solid #bbb;flex-shrink:0}
-.ex-r.on{border-color:#1a73e8;background:#1a73e8}
-.ex-cam{position:absolute;right:5px;top:38px;width:28px;height:35px;border-radius:4px;background:rgba(0,0,0,.82);border:1px solid rgba(255,255,255,.09);display:flex;align-items:flex-end;padding:2px}
-.ex-dot{width:4px;height:4px;border-radius:50%;background:#c62828}
+/* ── Screen 1: Splash ── */
+.sp{
+  background:#0D1B0E;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px 16px;height:100%;box-sizing:border-box;
+}
+.sp-logo{
+  width:48px;height:48px;border-radius:14px;margin-bottom:14px;
+  background:linear-gradient(145deg,#2E7D32,#65c46a);
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  box-shadow:0 6px 20px rgba(46,125,50,.4);
+}
+.sp-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;letter-spacing:-.01em}
+.sp-sub{font-size:9px;color:#65c46a;margin-bottom:8px;letter-spacing:.02em}
+.sp-div{width:28px;height:1px;background:#2E4A30;margin-bottom:8px}
+.sp-cat{font-size:8px;color:#5A7A5C;margin-bottom:28px}
+.sp-status{font-size:9px;color:#5A7A5C;margin-bottom:8px}
+.sp-bar-wrap{width:140px;height:3px;background:#162318;border-radius:3px;margin-bottom:28px;overflow:hidden}
+.sp-bar{height:100%;background:#2E7D32;border-radius:3px;animation:sp-load 2s ease forwards}
+@keyframes sp-load{from{width:0}to{width:78%}}
+.sp-ver{font-size:7px;color:#3a5a3c;margin-bottom:2px}
+.sp-cred{font-size:7px;color:#3a5a3c}
 
-/* — done — */
-.dn{background:#0D1B0E;padding:13px 10px;display:flex;flex-direction:column;align-items:center;min-height:296px}
-.dn-chk{font-size:30px;color:#2E7D32;margin-bottom:3px}
-.dn-t1{font-size:9px;font-weight:700;color:#fff;margin-bottom:2px}
-.dn-t2{font-size:6px;color:#9ab59b;margin-bottom:12px}
-.dn-card{background:#162318;border-radius:5px;width:100%;padding:8px;margin-bottom:7px}
-.dn-cl{font-size:5.5px;color:#4a6a4c;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-.dn-row{display:flex;padding:3px 0;border-bottom:1px solid #1E2E20;font-size:6.5px}
-.dn-row:last-child{border-bottom:none}
-.dn-row .l{flex:1;color:#9ab59b}.dn-row .v{color:#65c46a;font-family:monospace;font-weight:600}
-.dn-note{font-size:6px;color:#65c46a;margin-top:5px}
-.dn-btn{background:#2E7D32;width:100%;padding:7px;border-radius:5px;text-align:center;font-size:6.5px;font-weight:700;color:#fff;margin-top:auto}
+/* ── Screen 2: Scan ── */
+.sc2{background:#0D1B0E;display:flex;flex-direction:column;height:100%;box-sizing:border-box}
+.sc2-hd{
+  background:#1E2E20;padding:10px 12px 10px;
+  display:flex;align-items:center;gap:8px;flex-shrink:0;
+}
+.sc2-logo{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#2E7D32,#65c46a);flex-shrink:0}
+.sc2-ht{flex:1}
+.sc2-ht .a{font-size:9px;font-weight:700;color:#fff;line-height:1.2}
+.sc2-ht .b{font-size:7px;color:#65c46a}
+.sc2-ver{font-size:7px;color:#4a6a4c;background:#162318;padding:2px 6px;border-radius:3px}
+.sc2-body{flex:1;padding:10px 10px 0;overflow-y:auto;scrollbar-width:none}
+.sc2-body::-webkit-scrollbar{display:none}
+.sc2-label{font-size:7px;color:#4a6a4c;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;padding:0 2px}
+.sc2-panel{background:#162318;border-radius:6px;overflow:hidden;margin-bottom:6px}
+.sc2-row{display:flex;align-items:center;padding:7px 10px;border-bottom:1px solid #0D1B0E;cursor:default}
+.sc2-row:last-child{border-bottom:none}
+.sc2-row .l{flex:1;font-size:8.5px;color:#B0BEB1}
+.sc2-row .v{font-size:8px;font-family:monospace}
+.vg{color:#65c46a}.vy{color:#f9a825}.vr{color:#ef9a9a}
+.sc2-howto{
+  background:#162318;border-radius:6px;padding:8px 10px;
+  display:flex;align-items:center;margin-bottom:6px;cursor:pointer;
+}
+.sc2-howto .l{flex:1;font-size:8.5px;color:#B0BEB1}
+.sc2-howto .r{font-size:8px;color:#65c46a}
+.sc2-hint{
+  background:#1b2c1d;border-radius:5px;padding:6px 10px;
+  font-size:8px;color:#f9a825;line-height:1.4;margin-bottom:6px;
+  display:none;
+}
+.sc2-hint.show{display:block}
+.sc2-footer{padding:8px 10px 10px;flex-shrink:0}
+.sc2-btn-primary{
+  background:#2E7D32;border-radius:6px;padding:9px;
+  text-align:center;font-size:9px;font-weight:700;color:#fff;
+  margin-bottom:5px;cursor:pointer;transition:background .15s;
+}
+.sc2-btn-primary:hover{background:#3d9142}
+.sc2-btn-secondary{
+  border:1px solid #2E4A30;background:#162318;border-radius:6px;padding:7px;
+  text-align:center;font-size:8.5px;color:#9ab59b;
+  margin-bottom:5px;cursor:pointer;transition:background .15s;
+}
+.sc2-btn-secondary:hover{background:#1E2E20}
+.sc2-credits{text-align:center;font-size:7px;color:#3a5a3c;padding-bottom:6px}
+
+/* ── Screen 3: Exam ── */
+.ex2{
+  background:#0D1B0E;display:flex;flex-direction:column;
+  height:100%;box-sizing:border-box;overflow:hidden;
+}
+/* Top status bar — two rows to avoid cramping */
+.ex2-bar{
+  background:#162318;
+  padding:6px 10px 5px;
+  flex-shrink:0;
+}
+.ex2-bar-top{
+  display:flex;align-items:center;gap:5px;margin-bottom:4px;
+}
+.ex2-bar-top .ex2-name{flex:1;min-width:0}
+.ex2-bar-top .ex2-name .ex2-na{font-size:8.5px;font-weight:700;color:#fff;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ex2-bar-top .ex2-name .ex2-nb{font-size:6.5px;color:#65c46a}
+.ex2-fin{
+  background:#2E7D32;color:#fff;font-size:7.5px;
+  padding:4px 9px;border-radius:4px;font-weight:700;
+  cursor:pointer;flex-shrink:0;white-space:nowrap;
+  transition:background .15s;
+}
+.ex2-fin:hover{background:#3d9142}
+.ex2-bar-bottom{
+  display:flex;align-items:center;gap:0;
+}
+.ex2-timer-block{
+  display:flex;align-items:baseline;gap:4px;flex:1;
+}
+.ex2-timer-lbl{font-size:6px;color:#4a6a4c;letter-spacing:.08em;text-transform:uppercase}
+.ex2-timer-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:#fff;line-height:1}
+.ex2-meta-block{
+  display:flex;align-items:center;gap:6px;margin-left:auto;
+}
+.ex2-meta-item{font-size:7px;color:#65c46a}
+.ex2-warn-badge{
+  font-size:8px;font-weight:700;color:#F57C00;
+  background:rgba(245,124,0,.12);border:1px solid rgba(245,124,0,.25);
+  padding:1px 5px;border-radius:3px;
+}
+/* WebView fills remaining space */
+.ex2-wv{
+  background:#f1f3f4;
+  flex:1;
+  position:relative;
+  overflow:hidden;
+  min-height:0;
+}
+.ex2-gf-hd{background:#fff;padding:8px 12px;border-bottom:1px solid #e0e0e0}
+.ex2-gf-hd .ex2-gf-title{font-size:8.5px;font-weight:600;color:#202124}
+.ex2-gf-hd .ex2-gf-sub{font-size:7px;color:#5f6368}
+.ex2-gf-body{padding:9px 12px}
+.ex2-q{font-size:8px;font-weight:500;color:#202124;margin-bottom:8px;line-height:1.45}
+.ex2-opt{
+  display:flex;align-items:center;gap:6px;
+  padding:3px 0;font-size:7.5px;color:#3c4043;cursor:pointer;
+  transition:color .1s;
+}
+.ex2-opt:hover{color:#1a73e8}
+.ex2-opt:hover .ex2-radio{border-color:#1a73e8}
+.ex2-radio{
+  width:10px;height:10px;border-radius:50%;
+  border:1.5px solid #ccc;flex-shrink:0;transition:all .15s;
+}
+.ex2-radio.on{border-color:#1a73e8;background:#1a73e8}
+/* Camera overlay — top-right of WebView */
+.ex2-cam{
+  position:absolute;right:7px;top:7px;
+  width:38px;height:50px;border-radius:7px;
+  background:rgba(0,0,0,.88);
+  border:1px solid rgba(255,255,255,.14);
+  display:flex;flex-direction:column;align-items:center;
+  padding:4px 4px 3px;gap:0;
+  box-shadow:0 3px 10px rgba(0,0,0,.5);
+}
+.ex2-cam-face{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  font-size:13px;
+}
+.ex2-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#c62828;animation:blink 1.2s infinite;
+  flex-shrink:0;
+}
+/* Violation banner — pinned to bottom of .ex2 */
+.ex2-vbanner{
+  background:#c62828;padding:7px 10px;text-align:center;
+  font-size:8px;font-weight:700;color:#fff;flex-shrink:0;
+  display:none;
+}
+.ex2-vbanner.show{display:block}
+
+/* ── Screen 4: Done ── */
+.dn2{
+  background:#0D1B0E;padding:16px 14px;
+  display:flex;flex-direction:column;align-items:center;
+  height:100%;box-sizing:border-box;overflow-y:auto;scrollbar-width:none;
+}
+.dn2::-webkit-scrollbar{display:none}
+.dn2-spacer{flex:1;min-height:10px}
+.dn2-chk{font-size:44px;color:#2E7D32;margin-bottom:6px;line-height:1}
+.dn2-t1{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
+.dn2-t2{font-size:9px;color:#9ab59b;margin-bottom:20px}
+.dn2-card{
+  background:#162318;border-radius:7px;width:100%;padding:12px;margin-bottom:8px;
+}
+.dn2-cl{font-size:7px;color:#4a6a4c;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.dn2-row{display:flex;padding:5px 0;border-bottom:1px solid #1E2E20}
+.dn2-row:last-child{border-bottom:none}
+.dn2-row .l{flex:1;font-size:9px;color:#9ab59b}
+.dn2-row .v{font-size:10px;color:#65c46a;font-family:monospace;font-weight:600}
+.dn2-note{font-size:8px;color:#65c46a;margin-top:7px}
+.dn2-info{
+  background:#1E2E20;border-radius:6px;width:100%;padding:10px;margin-bottom:14px;
+}
+.dn2-info p{font-size:8px;color:#5A7A5C;line-height:1.6}
+.dn2-btn{
+  background:#2E7D32;width:100%;padding:10px;border-radius:6px;
+  text-align:center;font-size:8.5px;font-weight:700;color:#fff;
+  cursor:pointer;margin-bottom:8px;transition:background .15s;
+}
+.dn2-btn:hover{background:#3d9142}
+.dn2-cred{font-size:7px;color:#3a5a3c;text-align:center}
+
+/* Screen indicator dots */
+.screen-dots{display:flex;gap:6px;justify-content:center}
+.screen-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--s3);transition:all .25s;cursor:pointer;
+}
+.screen-dot.active{width:18px;border-radius:3px;background:var(--hi)}
+
+/* Screen label */
+.screen-label{
+  font-size:11px;color:var(--s2);letter-spacing:.04em;
+  min-height:16px;transition:opacity .2s;
+}
+
+@media(max-width:480px){
+  .phone-nav-btn{display:none}
+}
 
 /* ══ SECTION COMMON ══════════════════ */
 section{padding:72px 0}
@@ -381,7 +581,7 @@ footer{
   <div class="nav-c">
     <a class="brand" href="#">
       <div class="brand-sq">🔒</div>
-      CBT Exam Browser
+      MAN 1 Exam Browser
     </a>
     <div class="links">
       <a href="#fitur">Fitur</a>
@@ -397,11 +597,11 @@ footer{
 <!-- ══ HERO ════════════════════════════════ -->
 <section class="hero">
   <div class="c">
-    <div class="badge"><span class="bdot"></span>v1.5.0 · Stable · 0 Bug Aktif</div>
-    <h1>Browser Ujian<br><em>CBT Android</em></h1>
+    <div class="badge"><span class="bdot"></span>v1.6.0 · Stable · 0 Bug Aktif</div>
+    <h1>Browser Ujian<br><em>MAN 1 Lampung Barat</em></h1>
     <p class="hero-sub">Screen pinning, deteksi 50+ app terlarang, kamera live, dan monitoring realtime. Khusus MAN 1 Lampung Barat.</p>
     <div class="hero-btns">
-      <a class="btn-p" href="https://www.mediafire.com/file/2ss60gpwiywzels/app-debug.apk/file" target="_blank">
+      <a class="btn-p" href="https://www.mediafire.com/file/w0ihbbjgy75wdlg/man1exam.apk/file" target="_blank">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
         Download APK
       </a>
@@ -416,85 +616,174 @@ footer{
   </div>
 </section>
 
-<!-- ══ PHONE MOCKUPS ════════════════════════ -->
+<!-- ══ INTERACTIVE PHONE MOCKUP ════════════════ -->
 <div class="c phones-wrap z">
-  <div class="phones">
+  <div class="phone-demo-outer">
 
-    <!-- Setup -->
-    <div>
-      <div class="ph rv">
-        <div class="notch"><div class="nb"></div></div>
-        <div class="sc">
-          <div class="sc-hd">
-            <div class="sc-logo"></div>
-            <div class="sc-ht"><div class="a">CBT Exam Browser</div><div class="b">MAN 1 Lampung Barat</div></div>
-            <div class="sc-ver">v1.5.0</div>
-          </div>
-          <div class="sc-sec">STATUS PERANGKAT</div>
-          <div class="sc-pan">
-            <div class="sc-row"><span class="l">Koneksi</span><span class="v vg">✓ WiFi</span></div>
-            <div class="sc-row"><span class="l">Kunci Layar</span><span class="v vg">✓ Aktif</span></div>
-            <div class="sc-row"><span class="l">Keamanan</span><span class="v vg">✓ Aman</span></div>
-            <div class="sc-row"><span class="l">Izin Monitor</span><span class="v vy">✗ Ketuk →</span></div>
-            <div class="sc-row"><span class="l">Sesi Terakhir</span><span class="v vg">Hari ini, 09:31</span></div>
-          </div>
-          <div class="sc-hint">⚠ Aktifkan Izin Monitor App terlebih dahulu</div>
-          <div class="sc-btn">SCAN QR TOKEN</div>
-          <div class="sc-btn2">🔗 Ketik Link Manual</div>
-          <div class="sc-btn2">Kunci Layar (Screen Pinning)</div>
+    <div class="phone-nav-row">
+      <!-- Prev -->
+      <div class="phone-nav-btn" id="prev-btn" onclick="navScreen(-1)">‹</div>
+
+      <!-- The Phone -->
+      <div class="iphone">
+        <!-- Notch bar -->
+        <div class="iphone-notch">
+          <span class="iphone-time" id="mock-time">09:41</span>
+          <div class="iphone-pill"></div>
+          <span class="iphone-signal">▲▲▲ WiFi</span>
         </div>
-      </div>
-      <div class="ph-lbl">Halaman Setup</div>
-    </div>
 
-    <!-- Ujian -->
-    <div>
-      <div class="ph mid rv">
-        <div class="notch"><div class="nb"></div></div>
-        <div class="ex">
-          <div class="ex-bar">
-            <div class="n"><div class="a">Google Forms</div><div class="b">MAN 1 Lampung Barat</div></div>
-            <div class="t"><div class="a">WAKTU</div><div class="b">23:47</div></div>
-            <div class="ex-meta">WiFi ✓<br>🔋 82%</div>
-            <div class="ex-fin">Selesai</div>
-          </div>
-          <div class="ex-wv">
-            <div class="ex-fh"><div class="a">Ujian PAI Kelas XII — Sesi 1</div><div class="b">Semester Ganjil 2024/2025</div></div>
-            <div class="ex-fb">
-              <div class="ex-q">1. Yang dimaksud dengan ijtihad adalah...</div>
-              <div class="ex-o"><div class="ex-r"></div>Usaha maksimal mencari kebenaran</div>
-              <div class="ex-o"><div class="ex-r on"></div>Pengerahan kemampuan berpikir</div>
-              <div class="ex-o"><div class="ex-r"></div>Kesepakatan ulama Islam</div>
-              <div class="ex-o"><div class="ex-r"></div>Perbuatan Nabi Muhammad SAW</div>
+        <!-- Screen viewport -->
+        <div class="screen-viewport">
+          <div class="screen-track" id="screen-track">
+
+            <!-- ── SCREEN 1: SPLASH ── -->
+            <div class="app-screen">
+              <div class="sp">
+                <div class="sp-logo">🔒</div>
+                <div class="sp-title">MAN 1 Exam Browser</div>
+                <div class="sp-sub">MAN 1 Lampung Barat</div>
+                <div class="sp-div"></div>
+                <div class="sp-cat">Sistem Ujian Berbasis Komputer</div>
+                <div class="sp-status" id="sp-status-txt">Memeriksa keamanan perangkat...</div>
+                <div class="sp-bar-wrap"><div class="sp-bar" id="sp-bar"></div></div>
+                <div class="sp-ver">v1.6.0</div>
+                <div class="sp-cred">Zona Arjun · Ananda Raihan · Kosong Kosong Team</div>
+              </div>
             </div>
-            <div class="ex-cam"><div style="flex:1"></div><div class="ex-dot"></div></div>
-          </div>
-        </div>
-      </div>
-      <div class="ph-lbl">Halaman Ujian</div>
+
+            <!-- ── SCREEN 2: SCAN / SETUP ── -->
+            <div class="app-screen">
+              <div class="sc2">
+                <div class="sc2-hd">
+                  <div class="sc2-logo"></div>
+                  <div class="sc2-ht">
+                    <div class="a">MAN 1 Exam Browser</div>
+                    <div class="b">MAN 1 Lampung Barat</div>
+                  </div>
+                  <div class="sc2-ver">v1.6.0</div>
+                </div>
+                <div class="sc2-body">
+                  <div class="sc2-label">Status Perangkat</div>
+                  <div class="sc2-panel">
+                    <div class="sc2-row"><span class="l">Koneksi</span><span class="v vg" id="s-net">✓ WiFi</span></div>
+                    <div class="sc2-row"><span class="l">Kunci Layar</span><span class="v vg" id="s-pin">✓ Aktif</span></div>
+                    <div class="sc2-row"><span class="l">Keamanan</span><span class="v vg" id="s-sec">✓ Aman</span></div>
+                    <div class="sc2-row" style="cursor:pointer" onclick="togglePerm()" title="Klik untuk toggle">
+                      <span class="l">Izin Monitor App</span>
+                      <span class="v vy" id="s-perm">✗ Ketuk →</span>
+                    </div>
+                    <div class="sc2-row"><span class="l">Sesi Terakhir</span><span class="v vg" id="s-last">Hari ini, 09:31</span></div>
+                  </div>
+                  <div class="sc2-howto">
+                    <span class="l">📋  Cara Pakai Aplikasi</span>
+                    <span class="r">Lihat panduan ›</span>
+                  </div>
+                  <div class="sc2-hint" id="sc2-hint">⚠ Aktifkan Izin Monitor App dahulu sebelum scan QR atau ketik link ujian.</div>
+                </div>
+                <div class="sc2-footer">
+                  <div class="sc2-btn-primary" id="sc2-scan-btn" onclick="goToExam()">SCAN QR TOKEN</div>
+                  <div class="sc2-btn-secondary" onclick="goToExam()">🔗  Ketik Link Manual</div>
+                  <div class="sc2-btn-secondary" onclick="togglePin()">Kunci Layar (Screen Pinning)</div>
+                  <div class="sc2-credits">Zona Arjun · Ananda Raihan · Kosong Kosong Team</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── SCREEN 3: EXAM ── -->
+            <div class="app-screen">
+              <div class="ex2">
+
+                <!-- Status bar: 2 rows -->
+                <div class="ex2-bar">
+                  <div class="ex2-bar-top">
+                    <div class="ex2-name">
+                      <div class="ex2-na">Ujian CBT — PAI XII</div>
+                      <div class="ex2-nb">MAN 1 Lampung Barat</div>
+                    </div>
+                    <div class="ex2-fin" onclick="navScreen(1)">Selesai</div>
+                  </div>
+                  <div class="ex2-bar-bottom">
+                    <div class="ex2-timer-block">
+                      <span class="ex2-timer-lbl">WAKTU</span>
+                      <span class="ex2-timer-val" id="ex-timer">23:47</span>
+                    </div>
+                    <div class="ex2-meta-block">
+                      <span class="ex2-meta-item">WiFi ✓</span>
+                      <span class="ex2-meta-item">🔋 82%</span>
+                      <span class="ex2-warn-badge" id="ex-warn" style="display:none">⚠ 1</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- WebView area -->
+                <div class="ex2-wv">
+                  <div class="ex2-gf-hd">
+                    <div class="ex2-gf-title">Ujian PAI Kelas XII — Sesi 1</div>
+                    <div class="ex2-gf-sub">Semester Ganjil 2024/2025</div>
+                  </div>
+                  <div class="ex2-gf-body">
+                    <div class="ex2-q">1. Yang dimaksud dengan ijtihad dalam hukum Islam adalah...</div>
+                    <div class="ex2-opt" onclick="selectOpt(0,0)"><div class="ex2-radio" id="o0"></div>Usaha maksimal mencari kebenaran</div>
+                    <div class="ex2-opt" onclick="selectOpt(0,1)"><div class="ex2-radio on" id="o1"></div>Pengerahan kemampuan berpikir</div>
+                    <div class="ex2-opt" onclick="selectOpt(0,2)"><div class="ex2-radio" id="o2"></div>Kesepakatan para ulama Islam</div>
+                    <div class="ex2-opt" onclick="selectOpt(0,3)"><div class="ex2-radio" id="o3"></div>Perbuatan Nabi Muhammad SAW</div>
+                  </div>
+                  <!-- Camera overlay -->
+                  <div class="ex2-cam">
+                    <div class="ex2-cam-face">😐</div>
+                    <div class="ex2-dot"></div>
+                  </div>
+                </div>
+
+                <!-- Violation banner -->
+                <div class="ex2-vbanner" id="ex-vbanner">⚠ Aplikasi terlarang terdeteksi!</div>
+
+              </div>
+            </div>
+
+            <!-- ── SCREEN 4: DONE ── -->
+            <div class="app-screen">
+              <div class="dn2">
+                <div class="dn2-spacer"></div>
+                <div class="dn2-chk">✓</div>
+                <div class="dn2-t1">Ujian Selesai</div>
+                <div class="dn2-t2">Jawaban telah dikumpulkan</div>
+                <div class="dn2-spacer"></div>
+                <div class="dn2-card">
+                  <div class="dn2-cl">Catatan Mengerjakan</div>
+                  <div class="dn2-row"><span class="l">Waktu Mengerjakan</span><span class="v">36:13</span></div>
+                  <div class="dn2-row" style="border-bottom:none"><span class="l">Peringatan</span><span class="v">0 kali</span></div>
+                  <div class="dn2-note">✓ Tidak ada pelanggaran terdeteksi.</div>
+                </div>
+                <div class="dn2-info">
+                  <p>Alarm berbunyi sebagai tanda ujian selesai.<br>Akan berhenti saat guru scan QR sesi baru.</p>
+                </div>
+                <div class="dn2-btn" onclick="navScreen(-3)">KEMBALI KE HALAMAN UTAMA</div>
+                <div class="dn2-cred">Zona Arjun · Ananda Raihan · Kosong Kosong Team</div>
+              </div>
+            </div>
+
+          </div><!-- /screen-track -->
+        </div><!-- /screen-viewport -->
+      </div><!-- /iphone -->
+
+      <!-- Next -->
+      <div class="phone-nav-btn" id="next-btn" onclick="navScreen(1)">›</div>
     </div>
 
-    <!-- Selesai -->
-    <div>
-      <div class="ph rv">
-        <div class="notch"><div class="nb"></div></div>
-        <div class="dn">
-          <div class="dn-chk">✓</div>
-          <div class="dn-t1">Ujian Selesai</div>
-          <div class="dn-t2">Jawaban telah dikumpulkan</div>
-          <div class="dn-card">
-            <div class="dn-cl">CATATAN MENGERJAKAN</div>
-            <div class="dn-row"><span class="l">Waktu</span><span class="v">45:23</span></div>
-            <div class="dn-row"><span class="l">Peringatan</span><span class="v">Tidak ada ✓</span></div>
-            <div class="dn-note">✓ Tidak ada pelanggaran.</div>
-          </div>
-          <div class="dn-btn">KEMBALI KE HALAMAN UTAMA</div>
-        </div>
-      </div>
-      <div class="ph-lbl">Halaman Selesai</div>
+    <!-- Dots indicator -->
+    <div class="screen-dots" id="screen-dots">
+      <div class="screen-dot active" onclick="goToScreen(0)"></div>
+      <div class="screen-dot" onclick="goToScreen(1)"></div>
+      <div class="screen-dot" onclick="goToScreen(2)"></div>
+      <div class="screen-dot" onclick="goToScreen(3)"></div>
     </div>
 
-  </div>
+    <!-- Screen label -->
+    <div class="screen-label" id="screen-label">Layar Splash — memuat aplikasi</div>
+
+  </div><!-- /phone-demo-outer -->
 </div>
 
 <!-- ══ FEATURES ══════════════════════════════ -->
@@ -562,7 +851,7 @@ footer{
             <div class="drole">Lead Developer</div>
             <div class="dcls">
               <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-              XII IPA 4 · MAN 1 Lampung Barat
+              XII 4 · MAN 1 Lampung Barat
             </div>
           </div>
         </div>
@@ -585,7 +874,7 @@ footer{
             <div class="drole">Support Developer</div>
             <div class="dcls">
               <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-              MAN 1 Lampung Barat
+              XII 4 • Man 1 lampung barat
             </div>
           </div>
         </div>
@@ -618,14 +907,14 @@ footer{
     <h2 style="text-align:center">Siap digunakan<br>di sekolah Anda</h2>
     <p class="p">Gratis. Tidak ada iklan, tidak ada tracking. Semua data tersimpan lokal di perangkat.</p>
     <div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap">
-      <a class="btn-p" href="https://www.mediafire.com/file/2ss60gpwiywzels/app-debug.apk/file" target="_blank" style="font-size:15px;padding:13px 26px">
+      <a class="btn-p" href="https://www.mediafire.com/file/w0ihbbjgy75wdlg/man1exam.apk/file" target="_blank" style="font-size:15px;padding:13px 26px">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        Download APK v1.5.0
+        Download APK v1.6.0
       </a>
       <a class="btn-s" href="changelog.html" style="font-size:15px;padding:12px 20px">Lihat Changelog →</a>
     </div>
     <div class="meta rv">
-      <div class="mi"><div class="ml">Versi</div><div class="mv">1.5.0</div></div>
+      <div class="mi"><div class="ml">Versi</div><div class="mv">1.6.0</div></div>
       <div class="msep"></div>
       <div class="mi"><div class="ml">Min Android</div><div class="mv">8.0 (API 26)</div></div>
       <div class="msep"></div>
@@ -639,12 +928,12 @@ footer{
 
 <!-- ══ FOOTER ════════════════════════════════ -->
 <footer class="z">
-  <div class="flogo">CBT Exam Browser <span>— MAN 1 Lampung Barat</span></div>
+  <div class="flogo">MAN 1 Exam Browser <span>— MAN 1 Lampung Barat</span></div>
   <div class="flinks">
     <a href="#fitur">Fitur</a>
     <a href="#about">Developer</a>
     <a href="changelog.html">Changelog</a>
-    <a href="https://www.mediafire.com/file/2ss60gpwiywzels/app-debug.apk/file" target="_blank">Download</a>
+    <a href="https://www.mediafire.com/file/w0ihbbjgy75wdlg/man1exam.apk/file" target="_blank">Download</a>
   </div>
   <div class="fcred">Zona Arjun &amp; Ananda Raihan · Kosong Kosong Team</div>
 </footer>
@@ -667,6 +956,132 @@ document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', scrollY > 20);
 }, { passive: true });
+
+// ── Interactive Phone Mockup ──────────────────────────
+(function(){
+  const SCREENS = 4;
+  const LABELS = [
+    'Layar Splash — memuat aplikasi',
+    'Layar Setup — cek status perangkat',
+    'Layar Ujian — dalam sesi aktif',
+    'Layar Selesai — sesi berakhir'
+  ];
+  let cur = 0;
+  let examTimer = null, splashTimer = null;
+  let examSeconds = 23*60+47;
+  let permGranted = false;
+  let pinActive = true;
+
+  const track   = document.getElementById('screen-track');
+  const dotsEl  = document.getElementById('screen-dots');
+  const labelEl = document.getElementById('screen-label');
+
+  function goToScreen(n){
+    cur = ((n % SCREENS) + SCREENS) % SCREENS;
+    track.style.transform = `translateX(-${cur * 25}%)`;
+    // dots
+    dotsEl.querySelectorAll('.screen-dot').forEach((d,i)=>{
+      d.classList.toggle('active', i===cur);
+    });
+    labelEl.textContent = LABELS[cur];
+    // side effects per screen
+    if(cur===0) startSplash();
+    if(cur===2) startExamTimer();
+    else stopExamTimer();
+  }
+
+  window.navScreen = function(d){ goToScreen(cur+d); };
+  window.goToScreen = goToScreen;
+  window.goToExam = function(){ goToScreen(2); };
+
+  // Splash animation
+  function startSplash(){
+    const bar = document.getElementById('sp-bar');
+    const txt = document.getElementById('sp-status-txt');
+    const steps = ['Memeriksa keamanan perangkat...','Verifikasi integritas sistem...','Memuat komponen ujian...','Siap!'];
+    let i=0;
+    bar.style.transition='none'; bar.style.width='0';
+    clearTimeout(splashTimer);
+    function tick(){
+      if(i>=steps.length) return;
+      txt.textContent=steps[i];
+      bar.style.transition='width .6s ease';
+      bar.style.width=(25*(i+1))+'%';
+      i++;
+      splashTimer=setTimeout(tick,700);
+    }
+    setTimeout(tick,200);
+  }
+
+  // Exam timer
+  function startExamTimer(){
+    stopExamTimer();
+    examTimer = setInterval(()=>{
+      examSeconds = Math.max(0, examSeconds-1);
+      const m=String(Math.floor(examSeconds/60)).padStart(2,'0');
+      const s=String(examSeconds%60).padStart(2,'0');
+      const el=document.getElementById('ex-timer');
+      if(el) el.textContent=m+':'+s;
+      if(examSeconds<=0) stopExamTimer();
+    },1000);
+  }
+  function stopExamTimer(){ clearInterval(examTimer); }
+
+  // Radio select in exam screen
+  window.selectOpt = function(q, idx){
+    for(let i=0;i<4;i++){
+      const el=document.getElementById('o'+i);
+      if(el) el.classList.toggle('on', i===idx);
+    }
+  };
+
+  // Toggle permission in scan screen
+  window.togglePerm = function(){
+    permGranted = !permGranted;
+    const el=document.getElementById('s-perm');
+    const hint=document.getElementById('sc2-hint');
+    const btn=document.getElementById('sc2-scan-btn');
+    if(permGranted){
+      el.textContent='✓ Diberikan'; el.className='v vg';
+      hint.classList.remove('show');
+      btn.style.opacity='1';
+    } else {
+      el.textContent='✗ Ketuk →'; el.className='v vy';
+      hint.classList.add('show');
+      btn.style.opacity='.45';
+    }
+  };
+
+  // Toggle pin
+  window.togglePin = function(){
+    pinActive = !pinActive;
+    const el=document.getElementById('s-pin');
+    if(el){ el.textContent=pinActive?'✓ Aktif':'✗ Belum'; el.className=pinActive?'v vg':'v vy'; }
+  };
+
+  // Clock in notch
+  function updateClock(){
+    const now=new Date();
+    const h=String(now.getHours()).padStart(2,'0');
+    const m=String(now.getMinutes()).padStart(2,'0');
+    const el=document.getElementById('mock-time');
+    if(el) el.textContent=h+':'+m;
+  }
+  updateClock();
+  setInterval(updateClock,10000);
+
+  // Init at screen 0
+  goToScreen(0);
+
+  // Swipe support on the phone
+  const phone=document.querySelector('.iphone');
+  let startX=0;
+  phone.addEventListener('touchstart',e=>{ startX=e.touches[0].clientX; },{passive:true});
+  phone.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-startX;
+    if(Math.abs(dx)>30) navScreen(dx<0?1:-1);
+  },{passive:true});
+})();
 </script>
 
 </body>
