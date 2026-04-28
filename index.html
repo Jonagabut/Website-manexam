@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAN 1 Exam Browser — MAN 1 Lampung Barat</title>
-<meta name="description" content="Secure browser ujian CBT Android — screen pinning, monitor app terlarang, kamera live.">
+<meta name="description" content="Secure browser ujian CBT Android v0.0.3A — screen pinning, 62+ app terlarang, kamera live, anti-VPN, anti-accessibility hijack, clipboard wiper.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -597,9 +597,9 @@ footer{
 <!-- ══ HERO ════════════════════════════════ -->
 <section class="hero">
   <div class="c">
-    <div class="badge"><span class="bdot"></span>v1.6.0 · Stable · 0 Bug Aktif</div>
+    <div class="badge"><span class="bdot"></span>v0.0.3A · Stable · 0 Bug Aktif</div>
     <h1>Browser Ujian<br><em>MAN 1 Lampung Barat</em></h1>
-    <p class="hero-sub">Screen pinning, deteksi 50+ app terlarang, kamera live, dan monitoring realtime. Khusus MAN 1 Lampung Barat.</p>
+    <p class="hero-sub">Screen pinning, deteksi 62+ app terlarang, kamera live, anti-VPN, anti-accessibility hijack, clipboard wiper, dan monitoring realtime. Khusus MAN 1 Lampung Barat.</p>
     <div class="hero-btns">
       <a class="btn-p" href="https://www.mediafire.com/file/w0ihbbjgy75wdlg/man1exam.apk/file" target="_blank">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
@@ -608,9 +608,9 @@ footer{
       <a class="btn-s" href="changelog.html">Changelog →</a>
     </div>
     <div class="stats rv">
-      <div class="s-cell"><span class="s-n">83</span><div class="s-l">Total Fitur</div></div>
-      <div class="s-cell"><span class="s-n">50+</span><div class="s-l">App Terlarang</div></div>
-      <div class="s-cell"><span class="s-n">97%</span><div class="s-l">Device Support</div></div>
+      <div class="s-cell"><span class="s-n">101</span><div class="s-l">Total Fitur</div></div>
+      <div class="s-cell"><span class="s-n">62+</span><div class="s-l">App Terlarang</div></div>
+      <div class="s-cell"><span class="s-n">99%</span><div class="s-l">Device Support</div></div>
       <div class="s-cell"><span class="s-n">0</span><div class="s-l">Bug Aktif</div></div>
     </div>
   </div>
@@ -647,7 +647,7 @@ footer{
                 <div class="sp-cat">Sistem Ujian Berbasis Komputer</div>
                 <div class="sp-status" id="sp-status-txt">Memeriksa keamanan perangkat...</div>
                 <div class="sp-bar-wrap"><div class="sp-bar" id="sp-bar"></div></div>
-                <div class="sp-ver">v1.6.0</div>
+                <div class="sp-ver">v0.0.3A</div>
                 <div class="sp-cred">Zona Arjun · Ananda Raihan · Kosong Kosong Team</div>
               </div>
             </div>
@@ -661,7 +661,7 @@ footer{
                     <div class="a">MAN 1 Exam Browser</div>
                     <div class="b">MAN 1 Lampung Barat</div>
                   </div>
-                  <div class="sc2-ver">v1.6.0</div>
+                  <div class="sc2-ver">v0.0.3A</div>
                 </div>
                 <div class="sc2-body">
                   <div class="sc2-label">Status Perangkat</div>
@@ -673,6 +673,10 @@ footer{
                       <span class="l">Izin Monitor App</span>
                       <span class="v vy" id="s-perm">✗ Ketuk →</span>
                     </div>
+                    <div class="sc2-row"><span class="l">Keyboard</span><span class="v vg" id="s-kb">✓ Sistem</span></div>
+                    <div class="sc2-row"><span class="l">Aksesibilitas</span><span class="v vg" id="s-a11y">✓ Aman</span></div>
+                    <div class="sc2-row"><span class="l">Display</span><span class="v vg" id="s-disp">✓ Utama</span></div>
+                    <div class="sc2-row"><span class="l">VPN / Proxy</span><span class="v vg" id="s-vpn">✓ Tidak Ada</span></div>
                     <div class="sc2-row"><span class="l">Sesi Terakhir</span><span class="v vg" id="s-last">Hari ini, 09:31</span></div>
                   </div>
                   <div class="sc2-howto">
@@ -802,7 +806,7 @@ footer{
       <div class="fc rv">
         <div class="fc-ico">🛡️</div>
         <div class="fc-t">Monitor App Terlarang</div>
-        <div class="fc-d">Background service cek tiap 2 detik. 50+ package, 9 kategori: browser, AI, sosmed, VPN, remote access.</div>
+        <div class="fc-d">Background service cek tiap 2 detik. 62+ package, 9 kategori: browser, AI, sosmed, VPN, remote access.</div>
         <ul class="flist"><li>WakeLock + START_STICKY</li><li>VPN debounce 30 detik</li></ul>
       </div>
       <div class="fc rv">
@@ -828,6 +832,24 @@ footer{
         <div class="fc-t">Integrity Check</div>
         <div class="fc-d">Deteksi root, ADB, dev mode, emulator, dan VPN saat launch. Laporan ditampilkan ke guru.</div>
         <ul class="flist"><li>8 path su + Magisk/SuperSU</li><li>AppOpsManager check</li></ul>
+      </div>
+      <div class="fc rv">
+        <div class="fc-ico">⌨️</div>
+        <div class="fc-t">Anti-Custom Keyboard</div>
+        <div class="fc-d">Deteksi keyboard pihak ketiga. Hanya keyboard sistem yang diizinkan — ujian ditolak jika pakai keyboard custom.</div>
+        <ul class="flist"><li>Whitelist 8 ROM populer Indonesia</li><li>Cek ulang saat focus kembali</li></ul>
+      </div>
+      <div class="fc rv">
+        <div class="fc-ico">♿</div>
+        <div class="fc-t">Accessibility Blocker</div>
+        <div class="fc-d">Blokir Accessibility Service berbahaya yang bisa baca layar atau simulasi tap untuk bypass keamanan.</div>
+        <ul class="flist"><li>Filter non-system service</li><li>Nama app berbahaya ditampilkan</li></ul>
+      </div>
+      <div class="fc rv">
+        <div class="fc-ico">🖥️</div>
+        <div class="fc-t">Anti Screencast & VPN</div>
+        <div class="fc-d">Deteksi display sekunder (HDMI, Miracast) dan VPN/proxy aktif secara realtime selama ujian berlangsung.</div>
+        <ul class="flist"><li>DisplayManager.DisplayListener</li><li>NetworkCapabilities.TRANSPORT_VPN</li></ul>
       </div>
     </div>
   </div>
@@ -909,16 +931,16 @@ footer{
     <div style="display:flex;gap:9px;justify-content:center;flex-wrap:wrap">
       <a class="btn-p" href="https://www.mediafire.com/file/w0ihbbjgy75wdlg/man1exam.apk/file" target="_blank" style="font-size:15px;padding:13px 26px">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        Download APK v1.6.0
+        Download APK v0.0.3A
       </a>
       <a class="btn-s" href="changelog.html" style="font-size:15px;padding:12px 20px">Lihat Changelog →</a>
     </div>
     <div class="meta rv">
-      <div class="mi"><div class="ml">Versi</div><div class="mv">1.6.0</div></div>
+      <div class="mi"><div class="ml">Versi</div><div class="mv">0.0.3A</div></div>
       <div class="msep"></div>
       <div class="mi"><div class="ml">Min Android</div><div class="mv">8.0 (API 26)</div></div>
       <div class="msep"></div>
-      <div class="mi"><div class="ml">Coverage</div><div class="mv">~97% device</div></div>
+      <div class="mi"><div class="ml">Coverage</div><div class="mv">~99% device</div></div>
       <div class="msep"></div>
       <div class="mi"><div class="ml">Bug Aktif</div><div class="mv">0</div></div>
     </div>

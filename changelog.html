@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Changelog — MAN 1 Exam Browser</title>
+<title>Changelog — MAN 1 Exam Browser 0.0.3 A</title>
 <meta name="description" content="Riwayat lengkap semua perubahan, perbaikan bug, dan fitur baru di setiap versi CBT Exam Browser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -319,7 +319,7 @@ footer {
 
     <div class="cl-summary">
       <div class="cl-sum-card">
-        <span class="cl-sum-num">6</span>
+        <span class="cl-sum-num">7</span>
         <div class="cl-sum-label">Total Versi</div>
       </div>
       <div class="cl-sum-card">
@@ -327,7 +327,7 @@ footer {
         <div class="cl-sum-label">Bug Fixed</div>
       </div>
       <div class="cl-sum-card">
-        <span class="cl-sum-num">85</span>
+        <span class="cl-sum-num">101</span>
         <div class="cl-sum-label">Fitur Aktif</div>
       </div>
       <div class="cl-sum-card">
@@ -335,7 +335,7 @@ footer {
         <div class="cl-sum-label">Bug Aktif</div>
       </div>
       <div class="cl-sum-card">
-        <span class="cl-sum-num">97%</span>
+        <span class="cl-sum-num">99%</span>
         <div class="cl-sum-label">Device Coverage</div>
       </div>
     </div>
@@ -356,18 +356,190 @@ footer {
   <div class="timeline">
 
     <!-- ════════════════════════════════════════════
-         v1.6.0
+         0.0.3 A
     ═══════════════════════════════════════════════ -->
-    <div class="version-block latest reveal" id="v1.6.0">
+    <div class="version-block latest reveal" id="v0.0.3-A">
       <div class="version-dot"></div>
       <div class="version-head">
         <div class="version-meta">
-          <div class="version-num">v1.6.0</div>
+          <div class="version-num">0.0.3 A</div>
+          <div class="version-date">April 2026 · versionCode 7</div>
+          <div class="version-title">"Deep Security Hardening &amp; Anti-Tamper"</div>
+        </div>
+        <div class="version-badges">
+          <span class="v-badge v-latest">● Latest</span>
+          <span class="v-badge v-stable">Stable</span>
+          <span class="v-badge v-major">Major Release</span>
+        </div>
+      </div>
+
+      <div class="change-groups">
+
+        <!-- SECURITY -->
+        <div class="change-group" data-type="security">
+          <div class="change-group-header">
+            <span class="change-type type-security">🔒 Security</span>
+            <span class="change-count">8 peningkatan keamanan</span>
+          </div>
+          <div class="change-items">
+
+            <div class="change-item">
+              <div class="change-item-icon">⌨️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Anti-Custom Keyboard — Blokir keyboard pihak ketiga</div>
+                <div class="change-item-desc">Deteksi apakah keyboard yang aktif bukan keyboard bawaan perangkat. Menggunakan Settings.Secure.DEFAULT_INPUT_METHOD dan whitelist package keyboard sistem (Samsung, MIUI, AOSP, Gboard, ColorOS, dll). Jika custom keyboard terdeteksi, ujian tidak bisa dimulai.</div>
+                <div class="change-item-code">checkCustomKeyboard() → blocked if currentIme ∉ allowedKeyboards</div>
+                <div class="change-item-files">
+                  <span class="file-tag">SecurityGuard.kt ✨</span>
+                  <span class="file-tag">ScanActivity.kt</span>
+                  <span class="file-tag">ExamActivity.kt</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="change-item">
+              <div class="change-item-icon">📋</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Clipboard Wiper — Auto-wipe di onResume &amp; onWindowFocusChanged</div>
+                <div class="change-item-desc">ClipboardGuard otomatis menghapus isi clipboard (ClipboardManager.clearPrimaryClip() di API 28+, fallback setText("") untuk API lama) saat Activity kembali ke foreground atau mendapat fokus. Continuous guard listener juga wipe setiap kali ada data baru masuk clipboard selama ujian berlangsung.</div>
+                <div class="change-item-code">lifecycle.addObserver(clipboardGuard) + addPrimaryClipChangedListener</div>
+                <div class="change-item-files">
+                  <span class="file-tag">ClipboardGuard.kt ✨</span>
+                  <span class="file-tag">ScanActivity.kt</span>
+                  <span class="file-tag">ExamActivity.kt</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="change-item">
+              <div class="change-item-icon">♿</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Accessibility Service Blocker — Blokir app pembaca layar berbahaya</div>
+                <div class="change-item-desc">Malicious app pakai Accessibility Service untuk baca teks layar (bypass FLAG_SECURE) atau simulasi tap. Implementasi cek via AccessibilityManager.getEnabledAccessibilityServiceList(FEEDBACK_ALL_MASK). Jika ada non-system accessibility service aktif, ujian ditolak dengan pesan detail nama service.</div>
+                <div class="change-item-code">am.getEnabledAccessibilityServiceList() → filter non-system packages</div>
+                <div class="change-item-files">
+                  <span class="file-tag">SecurityGuard.kt ✨</span>
+                  <span class="file-tag">ScanActivity.kt</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="change-item">
+              <div class="change-item-icon">🖥️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Secondary Display &amp; OTG Monitor — Blokir screencast real-time</div>
+                <div class="change-item-desc">DisplayGuard menggunakan DisplayManager.DisplayListener untuk mendeteksi display sekunder (HDMI, Miracast, Chromecast, virtual display). Cek awal saat onResume (displayId != 0), monitoring real-time selama ujian. Jika monitor eksternal atau screencast aktif saat ujian: violation dicatat langsung.</div>
+                <div class="change-item-code">displayManager.displays.any { it.displayId != 0 } → lock exam</div>
+                <div class="change-item-files">
+                  <span class="file-tag">DisplayGuard.kt ✨</span>
+                  <span class="file-tag">ExamActivity.kt</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="change-item">
+              <div class="change-item-icon">🔐</div>
+              <div class="change-item-content">
+                <div class="change-item-title">VPN &amp; Proxy Detection — Enhanced, cek real-time saat ujian</div>
+                <div class="change-item-desc">Deteksi VPN via NetworkCapabilities.hasTransport(TRANSPORT_VPN). Ditambah deteksi HTTP proxy manual via System.getProperty("http.proxyHost"). Re-check dilakukan saat onResume ExamActivity — jika user nyalain VPN setelah layar dibuka, tetap ter-detect dan dicatat sebagai violation. Debounce 30 detik masih aktif dari SecurityService.</div>
+                <div class="change-item-code">TRANSPORT_VPN || http.proxyHost != null → violation "vpn_active"</div>
+                <div class="change-item-files">
+                  <span class="file-tag">SecurityGuard.kt ✨</span>
+                  <span class="file-tag">ExamActivity.kt</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="change-item">
+              <div class="change-item-icon">📌</div>
+              <div class="change-item-content">
+                <div class="change-item-title">SSL Certificate Pinning — Blokir MitM attack (HTTP Toolkit, Charles)</div>
+                <div class="change-item-desc">ExamCertificatePinner menggunakan OkHttp CertificatePinner untuk mengikat koneksi ke SHA-256 fingerprint certificate server ujian. Jika seseorang menginstal CA palsu (Burp, Charles, HTTP Toolkit) untuk intercept traffic, koneksi langsung gagal dengan SSLPeerUnverifiedException. Mendukung primary + backup pin untuk antisipasi rotasi certificate.</div>
+                <div class="change-item-code">CertificatePinner.Builder().add(domain, "sha256/...").build()</div>
+                <div class="change-item-files">
+                  <span class="file-tag">ExamCertificatePinner.kt ✨</span>
+                  <span class="file-tag">network_security_config.xml ✨</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="change-item">
+              <div class="change-item-icon">🛡️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Pre-exam Security Gate — Semua cek dijalankan sebelum tombol aktif</div>
+                <div class="change-item-desc">SecurityGuard.runAllChecks() menjalankan semua cek baru (keyboard, accessibility, display, VPN/proxy) sebagai satu pipeline. Dipanggil di onResume ScanActivity dan sesaat sebelum ExamActivity dibuka. Jika gagal, dialog blocking muncul dengan kode error dan instruksi perbaikan.</div>
+                <div class="change-item-code">val r = guard.runAllChecks(); if (!r.passed) showBlockDialog(r.reason, r.code)</div>
+                <div class="change-item-files">
+                  <span class="file-tag">SecurityGuard.kt ✨</span>
+                  <span class="file-tag">ScanActivity.kt</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="change-item">
+              <div class="change-item-icon">🔏</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Obfuskasi Agresif — ProGuard R8 full mode, package rename ke 'x.*'</div>
+                <div class="change-item-desc">ProGuard rules diperketat: 7 optimization passes, repackageclasses ke 'x', overloadAggressively, custom obfuscation dictionary (a-z + aa-cz). Semua Log.* calls dihapus di release build via assumenosideeffects. Security classes (SecurityGuard, ClipboardGuard, DisplayGuard, ExamCertificatePinner) tidak di-keep sehingga ter-obfuskasi penuh. Susah di-reverse oleh modder.</div>
+                <div class="change-item-code">-repackageclasses 'x' -optimizationpasses 7 -overloadaggressively</div>
+                <div class="change-item-files">
+                  <span class="file-tag">proguard-rules.pro ✨</span>
+                  <span class="file-tag">proguard-dict.txt ✨</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- COMPAT -->
+        <div class="change-group" data-type="compat">
+          <div class="change-group-header">
+            <span class="change-type type-compat">📱 Kompatibilitas</span>
+            <span class="change-count">2 peningkatan</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">📲</div>
+              <div class="change-item-content">
+                <div class="change-item-title">AndroidManifest.xml — Permission baru untuk security features</div>
+                <div class="change-item-desc">Ditambahkan CHANGE_NETWORK_STATE (backup VPN detection) dan network_security_config untuk domain pinning. Tidak ada permission yang memerlukan user approval di runtime.</div>
+                <div class="change-item-files">
+                  <span class="file-tag">AndroidManifest.xml</span>
+                  <span class="file-tag">res/xml/network_security_config.xml ✨</span>
+                </div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">⚙️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Keyboard whitelist — Support 8 ROM populer Indonesia</div>
+                <div class="change-item-desc">Daftar keyboard sistem yang diizinkan mencakup: Samsung (OneUI), MIUI (Xiaomi), ColorOS (Oppo/Realme), OriginOS (Vivo), EMUI (Huawei), AOSP, dan Gboard. Mudah dikustomisasi oleh admin untuk menambah/hapus keyboard dari daftar whitelist.</div>
+                <div class="change-item-files">
+                  <span class="file-tag">SecurityGuard.kt</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr class="version-divider">
+
+    <!-- ════════════════════════════════════════════
+         0.0.2 C
+    ═══════════════════════════════════════════════ -->
+    <div class="version-block reveal" id="v0.0.2-C">
+      <div class="version-dot"></div>
+      <div class="version-head">
+        <div class="version-meta">
+          <div class="version-num">0.0.2 C</div>
           <div class="version-date">February 2026 · versionCode 6</div>
           <div class="version-title">"Button Fix & Security Hardening"</div>
         </div>
         <div class="version-badges">
-          <span class="v-badge v-latest">● Latest</span>
           <span class="v-badge v-stable">Stable</span>
         </div>
       </div>
@@ -445,13 +617,13 @@ footer {
     <hr class="version-divider">
 
     <!-- ════════════════════════════════════════════
-         v1.5.0
+         0.0.2 B
     ═══════════════════════════════════════════════ -->
-    <div class="version-block reveal" id="v1.5.0">
+    <div class="version-block reveal" id="v0.0.2-B">
       <div class="version-dot"></div>
       <div class="version-head">
         <div class="version-meta">
-          <div class="version-num">v1.5.0</div>
+          <div class="version-num">0.0.2 B</div>
           <div class="version-date">February 2025 · versionCode 5</div>
           <div class="version-title">"Multi-Device & Critical Bug Fixes"</div>
         </div>
@@ -645,13 +817,13 @@ footer {
     <hr class="version-divider">
 
     <!-- ════════════════════════════════════════════
-         v1.4.1
+         0.0.2 A
     ═══════════════════════════════════════════════ -->
-    <div class="version-block reveal" id="v1.4.1">
+    <div class="version-block reveal" id="v0.0.2-A">
       <div class="version-dot"></div>
       <div class="version-head">
         <div class="version-meta">
-          <div class="version-num">v1.4.1</div>
+          <div class="version-num">0.0.2 A</div>
           <div class="version-date">January 2025 · versionCode 4</div>
           <div class="version-title">"Status Check & Violation Fixes"</div>
         </div>
@@ -715,13 +887,13 @@ footer {
     <hr class="version-divider">
 
     <!-- ════════════════════════════════════════════
-         v1.4.0
+         0.0.1 C
     ═══════════════════════════════════════════════ -->
-    <div class="version-block reveal" id="v1.4.0">
+    <div class="version-block reveal" id="v0.0.1-C">
       <div class="version-dot"></div>
       <div class="version-head">
         <div class="version-meta">
-          <div class="version-num">v1.4.0</div>
+          <div class="version-num">0.0.1 C</div>
           <div class="version-date">December 2024 · versionCode 3</div>
           <div class="version-title">"Migration: Device Admin → Screen Pinning"</div>
         </div>
@@ -818,13 +990,13 @@ footer {
     <hr class="version-divider">
 
     <!-- ════════════════════════════════════════════
-         v1.3.0
+         0.0.1 B
     ═══════════════════════════════════════════════ -->
-    <div class="version-block reveal" id="v1.3.0">
+    <div class="version-block reveal" id="v0.0.1-B">
       <div class="version-dot"></div>
       <div class="version-head">
         <div class="version-meta">
-          <div class="version-num">v1.3.0</div>
+          <div class="version-num">0.0.1 B</div>
           <div class="version-date">November 2024 · versionCode 2</div>
           <div class="version-title">"Live Camera & Security Service"</div>
         </div>
@@ -888,13 +1060,13 @@ footer {
     <hr class="version-divider">
 
     <!-- ════════════════════════════════════════════
-         v1.0.0
+         0.0.1 A
     ═══════════════════════════════════════════════ -->
-    <div class="version-block reveal" id="v1.0.0">
+    <div class="version-block reveal" id="v0.0.1-A">
       <div class="version-dot"></div>
       <div class="version-head">
         <div class="version-meta">
-          <div class="version-num">v1.0.0</div>
+          <div class="version-num">0.0.1 A</div>
           <div class="version-date">October 2024 · versionCode 1</div>
           <div class="version-title">"Initial Release"</div>
         </div>
