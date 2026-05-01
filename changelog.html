@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Changelog — MAN 1 Exam Browser 0.0.3 A</title>
+<title>Changelog — MAN 1 Exam Browser 0.0.3 B</title>
 <meta name="description" content="Riwayat lengkap semua perubahan, perbaikan bug, dan fitur baru di setiap versi CBT Exam Browser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
 
 body {
   background: var(--bg);
@@ -36,6 +36,7 @@ body {
   font-size: 15px;
   line-height: 1.6;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 body::before {
@@ -43,6 +44,8 @@ body::before {
   position: fixed; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none; z-index: 0; opacity: 0.6;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* ── NAV ── */
@@ -52,6 +55,8 @@ nav {
   background: rgba(8,15,9,0.92);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
+  will-change: transform;
+  transform: translateZ(0);
 }
 .nav-inner {
   display: flex; align-items: center; justify-content: space-between;
@@ -126,6 +131,8 @@ nav {
   padding: 24px 0; border-bottom: 1px solid var(--border);
   position: sticky; top: 53px; z-index: 50;
   background: var(--bg);
+  will-change: transform;
+  transform: translateZ(0);
 }
 .filter-btn {
   padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600;
@@ -319,11 +326,11 @@ footer {
 
     <div class="cl-summary">
       <div class="cl-sum-card">
-        <span class="cl-sum-num">7</span>
+        <span class="cl-sum-num">8</span>
         <div class="cl-sum-label">Total Versi</div>
       </div>
       <div class="cl-sum-card">
-        <span class="cl-sum-num">33</span>
+        <span class="cl-sum-num">36</span>
         <div class="cl-sum-label">Bug Fixed</div>
       </div>
       <div class="cl-sum-card">
@@ -356,9 +363,162 @@ footer {
   <div class="timeline">
 
     <!-- ════════════════════════════════════════════
+         0.0.3 B
+    ═══════════════════════════════════════════════ -->
+    <div class="version-block latest reveal" id="v0.0.3-B">
+      <div class="version-dot"></div>
+      <div class="version-head">
+        <div class="version-meta">
+          <div class="version-num">0.0.3 B</div>
+          <div class="version-date">May 2026 · versionCode 8</div>
+          <div class="version-title">"QR Encryption & Android 14 Stability"</div>
+        </div>
+        <div class="version-badges">
+          <span class="v-badge v-latest">● Latest</span>
+          <span class="v-badge v-stable">Stable</span>
+          <span class="v-badge v-major">Breaking Change</span>
+        </div>
+      </div>
+
+      <div class="change-groups">
+
+        <!-- SECURITY -->
+        <div class="change-group" data-type="security">
+          <div class="change-group-header">
+            <span class="change-type type-security">🔒 Security</span>
+            <span class="change-count">3 peningkatan keamanan</span>
+          </div>
+          <div class="change-items">
+
+            <div class="change-item">
+              <div class="change-item-icon">🔐</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Enkripsi AES-256-CBC pada QR ujian</div>
+                <div class="change-item-desc">Isi QR sekarang dienkripsi menggunakan AES-256-CBC. Hanya APK MAN 1 Exam Browser yang memiliki kunci untuk mendekripsi — scanner lain (kamera bawaan, Google Lens, WhatsApp, dll) hanya akan membaca deretan karakter acak tanpa makna, sehingga siswa tidak bisa mengakses link ujian dari luar aplikasi.</div>
+                <div class="change-item-code">AES/CBC/PKCS5Padding — 256-bit key, URL-safe Base64 output</div>
+                <div class="change-item-files"><span class="file-tag">ScanActivity.kt</span><span class="file-tag">Admin Panel v3 ✨</span></div>
+              </div>
+            </div>
+
+            <div class="change-item">
+              <div class="change-item-icon">♾️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">QR bersifat permanen — tidak ada masa kedaluarsa</div>
+                <div class="change-item-desc">QR yang di-generate tidak memiliki expiry time. Guru cukup generate sekali per ujian dan bisa digunakan kembali tanpa perlu regenerate.</div>
+              </div>
+            </div>
+
+            <div class="change-item">
+              <div class="change-item-icon">🌐</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Admin Panel berbasis web — generate QR dari browser</div>
+                <div class="change-item-desc">Admin Panel kini fully web-based. Guru bisa generate QR ujian langsung dari browser tanpa perlu install apapun. Panel menangani enkripsi, encoding URL-safe Base64, dan render QR secara otomatis.</div>
+                <div class="change-item-files"><span class="file-tag">Admin Panel v3 ✨</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- BUG FIX -->
+        <div class="change-group" data-type="fix">
+          <div class="change-group-header">
+            <span class="change-type type-fix">🔧 Bug Fix</span>
+            <span class="change-count">3 perbaikan</span>
+          </div>
+          <div class="change-items">
+
+            <div class="change-item">
+              <div class="change-item-icon">🔴</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[CRITICAL] FC saat scan QR — Base64 mismatch APK vs Admin Panel</div>
+                <div class="change-item-desc">Admin Panel v2 menghasilkan Base64 standar yang mengandung karakter <code>+</code>, <code>/</code>, dan <code>=</code>. APK men-decode dengan mode yang tidak bisa membaca karakter tersebut, menyebabkan payload AES corrupt dan app langsung crash. Keduanya sekarang sinkron menggunakan URL-safe Base64.</div>
+                <div class="change-item-code">Base64.DEFAULT → Base64.URL_SAFE or Base64.NO_PADDING</div>
+                <div class="change-item-files"><span class="file-tag">ScanActivity.kt</span></div>
+              </div>
+            </div>
+
+            <div class="change-item">
+              <div class="change-item-icon">🔴</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[CRITICAL] FC setelah scan QR di Android 14</div>
+                <div class="change-item-desc">Pemanggilan <code>startForeground()</code> 2-argumen menyebabkan crash di Android 14 (API 34) karena wajib deklarasi tipe service secara eksplisit. Fix: migrasi ke varian 3-argumen.</div>
+                <div class="change-item-code">startForeground(id, notif) → startForeground(id, notif, FOREGROUND_SERVICE_TYPE_DATA_SYNC)</div>
+                <div class="change-item-files"><span class="file-tag">SecurityService.kt</span></div>
+              </div>
+            </div>
+
+            <div class="change-item">
+              <div class="change-item-icon">🟠</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[HIGH] SecurityService berhenti setelah scan berhasil</div>
+                <div class="change-item-desc">Race condition antara <code>onDestroy</code> ScanActivity dan <code>startService</code> menyebabkan service tidak jalan stabil setelah navigasi ke ExamActivity. Service kini di-start ulang di <code>onCreate</code> ExamActivity.</div>
+                <div class="change-item-files"><span class="file-tag">SecurityService.kt</span><span class="file-tag">ExamActivity.kt</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- BREAKING -->
+        <div class="change-group" data-type="break">
+          <div class="change-group-header">
+            <span class="change-type type-break">⚠ Breaking Change</span>
+            <span class="change-count">1 perubahan</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">⚠️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">QR dari Admin Panel v2 tidak kompatibel</div>
+                <div class="change-item-desc">APK v0.0.3B ke atas hanya bisa membaca QR yang di-generate dari Admin Panel v3 (URL-safe Base64). Semua QR lama harus di-generate ulang.</div>
+                <div class="change-item-files"><span class="file-tag">Admin Panel v3 ✨</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QR Admin Panel -->
+        <div class="change-group" data-type="feat">
+          <div class="change-group-header">
+            <span class="change-type type-feat">✨ QR Admin Panel v3</span>
+            <span class="change-count">3 perubahan</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">🚀</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Versi Admin Panel naik ke v3.0.0</div>
+                <div class="change-item-desc">Major bump untuk menandai perubahan format payload yang tidak backward-compatible dengan v2.</div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🔗</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Payload pakai URL-safe Base64 tanpa padding</div>
+                <div class="change-item-desc">Karakter <code>+</code>, <code>/</code>, dan <code>=</code> tidak lagi muncul di payload QR. Kompatibel penuh dengan APK v0.0.3B ke atas.</div>
+                <div class="change-item-code">btoa() → base64url() — no +, /, = chars</div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🏷️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Label format payload diupdate ke <code>AES-Base64-URLSafe</code></div>
+                <div class="change-item-desc">UI Admin Panel kini menampilkan label format yang akurat sesuai encoding yang digunakan.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr class="version-divider">
+
+    <!-- ════════════════════════════════════════════
          0.0.3 A
     ═══════════════════════════════════════════════ -->
-    <div class="version-block latest reveal" id="v0.0.3-A">
+    <div class="version-block reveal" id="v0.0.3-A">
       <div class="version-dot"></div>
       <div class="version-head">
         <div class="version-meta">
@@ -367,7 +527,6 @@ footer {
           <div class="version-title">"Deep Security Hardening &amp; Anti-Tamper"</div>
         </div>
         <div class="version-badges">
-          <span class="v-badge v-latest">● Latest</span>
           <span class="v-badge v-stable">Stable</span>
           <span class="v-badge v-major">Major Release</span>
         </div>
@@ -536,7 +695,7 @@ footer {
       <div class="version-head">
         <div class="version-meta">
           <div class="version-num">0.0.2 C</div>
-          <div class="version-date">February 2026 · versionCode 6</div>
+          <div class="version-date">March 2026 · versionCode 6</div>
           <div class="version-title">"Button Fix & Security Hardening"</div>
         </div>
         <div class="version-badges">
@@ -624,7 +783,7 @@ footer {
       <div class="version-head">
         <div class="version-meta">
           <div class="version-num">0.0.2 B</div>
-          <div class="version-date">February 2025 · versionCode 5</div>
+          <div class="version-date">March 2026 · versionCode 5</div>
           <div class="version-title">"Multi-Device & Critical Bug Fixes"</div>
         </div>
         <div class="version-badges">
@@ -824,7 +983,7 @@ footer {
       <div class="version-head">
         <div class="version-meta">
           <div class="version-num">0.0.2 A</div>
-          <div class="version-date">January 2025 · versionCode 4</div>
+          <div class="version-date">February 2026 · versionCode 4</div>
           <div class="version-title">"Status Check & Violation Fixes"</div>
         </div>
         <div class="version-badges">
@@ -894,7 +1053,7 @@ footer {
       <div class="version-head">
         <div class="version-meta">
           <div class="version-num">0.0.1 C</div>
-          <div class="version-date">December 2024 · versionCode 3</div>
+          <div class="version-date">February 2026 · versionCode 3</div>
           <div class="version-title">"Migration: Device Admin → Screen Pinning"</div>
         </div>
         <div class="version-badges">
@@ -997,7 +1156,7 @@ footer {
       <div class="version-head">
         <div class="version-meta">
           <div class="version-num">0.0.1 B</div>
-          <div class="version-date">November 2024 · versionCode 2</div>
+          <div class="version-date">January 2026 · versionCode 2</div>
           <div class="version-title">"Live Camera & Security Service"</div>
         </div>
         <div class="version-badges">
@@ -1067,7 +1226,7 @@ footer {
       <div class="version-head">
         <div class="version-meta">
           <div class="version-num">0.0.1 A</div>
-          <div class="version-date">October 2024 · versionCode 1</div>
+          <div class="version-date">January 2026 · versionCode 1</div>
           <div class="version-title">"Initial Release"</div>
         </div>
         <div class="version-badges">
