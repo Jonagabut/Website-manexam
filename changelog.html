@@ -212,10 +212,10 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(37,99,235,0.09); }
 }
 .change-item-files { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
 .file-tag {
-  font-size: 10.5px; font-family: 'DM Mono', monospace;
+  font-size: 10.5px; font-family: 'Plus Jakarta Sans', sans-serif;
   color: var(--b700); background: var(--b50);
-  padding: 2px 8px; border-radius: 4px; border: 1px solid var(--b200);
-  white-space: nowrap;
+  padding: 2px 10px; border-radius: 100px; border: 1px solid var(--b200);
+  white-space: nowrap; font-weight: 600; letter-spacing: 0.02em;
 }
 
 /* ── DIVIDER ── */
@@ -297,11 +297,11 @@ footer {
     <h1>Riwayat<br>Pembaruan</h1>
     <p class="cl-header-sub">Semua perubahan, perbaikan bug, dan fitur baru didokumentasikan di sini. Setiap entry mencantumkan file yang diubah dan dampaknya.</p>
     <div class="cl-summary">
-      <div class="cl-sum-card"><span class="cl-sum-num">9</span><div class="cl-sum-label">Total Versi</div></div>
-      <div class="cl-sum-card"><span class="cl-sum-num">39</span><div class="cl-sum-label">Bug Fixed</div></div>
-      <div class="cl-sum-card"><span class="cl-sum-num">108</span><div class="cl-sum-label">Fitur Aktif</div></div>
+      <div class="cl-sum-card"><span class="cl-sum-num">10</span><div class="cl-sum-label">Total Versi</div></div>
+      <div class="cl-sum-card"><span class="cl-sum-num">42</span><div class="cl-sum-label">Bug Fixed</div></div>
+      <div class="cl-sum-card"><span class="cl-sum-num">7</span><div class="cl-sum-label">Fitur Aktif</div></div>
       <div class="cl-sum-card"><span class="cl-sum-num">0</span><div class="cl-sum-label">Bug Aktif</div></div>
-      <div class="cl-sum-card"><span class="cl-sum-num">99%</span><div class="cl-sum-label">Device Coverage</div></div>
+      <div class="cl-sum-card"><span class="cl-sum-num">100%</span><div class="cl-sum-label">Client Side</div></div>
     </div>
   </div>
 
@@ -319,8 +319,181 @@ footer {
   <!-- TIMELINE -->
   <div class="timeline">
 
+    <!-- ════ 0.0.4 A ════ -->
+    <div class="version-block latest reveal" id="v0.0.4-A">
+      <div class="version-dot"></div>
+      <div class="version-head">
+        <div class="version-meta">
+          <div class="version-num">0.0.4 A</div>
+          <div class="version-date">June 2026 · versionCode 10</div>
+          <div class="version-title">"Security Hardening — Client-Side Only Rewrite"</div>
+        </div>
+        <div class="version-badges">
+          <span class="v-badge v-latest">● Latest</span>
+          <span class="v-badge v-stable">Stable</span>
+          <span class="v-badge v-major">Major Release</span>
+        </div>
+      </div>
+      <div class="change-groups">
+
+        <div class="change-group" data-type="security">
+          <div class="change-group-header">
+            <span class="change-type type-security">🔒 Security</span>
+            <span class="change-count">4 peningkatan keamanan</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">🪟</div>
+              <div class="change-item-content">
+                <div class="change-item-title">setHideOverlayWindows — Blokir Floating Window Built-in</div>
+                <div class="change-item-desc">Menambahkan <code>setHideOverlayWindows(true)</code> di Android 12+ (API 31). Floating window bawaan Samsung (Edge Panel, Multi Window), MIUI, OPPO, dan Vivo otomatis disembunyikan selama ujian berlangsung — tanpa deteksi manual.</div>
+                <div class="change-item-files"><span class="file-tag">security layer</span><span class="file-tag">android 12+</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🔍</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Overlay App Detection di System Check</div>
+                <div class="change-item-desc">System Check kini mendeteksi semua app non-sistem yang punya izin <code>SYSTEM_ALERT_WINDOW</code> aktif. Jika terdeteksi, tombol MULAI diblokir dan siswa diarahkan ke Settings untuk menonaktifkan izin tersebut. Target: ChatGPT overlay, Grammarly, floating browser, screen mirror app.</div>
+                <div class="change-item-files"><span class="file-tag">system check module</span><span class="file-tag">ui layer</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">📸</div>
+              <div class="change-item-content">
+                <div class="change-item-title">ScreenCaptureCallback — Screenshot Detection Android 14+</div>
+                <div class="change-item-desc">Mendaftarkan <code>ScreenCaptureCallback</code> pada Android 14+ (API 34). Jika ada yang berhasil capture layar melalui workaround atau mirror, langsung tercatat sebagai pelanggaran dengan counter +1. Backward compatible — di Android &lt;14 tidak crash.</div>
+                <div class="change-item-files"><span class="file-tag">exam session module</span><span class="file-tag">android 14+</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">📱</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Kunci Orientasi Portrait 3 Lapis</div>
+                <div class="change-item-desc">Orientasi portrait dikunci melalui 3 mekanisme sekaligus: <code>screenOrientation</code> di manifest, <code>requestedOrientation</code> programatik di onCreate, dan re-enforce di setiap focus change. ROM custom seperti MIUI dan ColorOS yang bisa override manifest kini tidak bisa rotate layar selama ujian.</div>
+                <div class="change-item-files"><span class="file-tag">exam session module</span><span class="file-tag">app config</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="change-group" data-type="fix">
+          <div class="change-group-header">
+            <span class="change-type type-fix">🔧 Bug Fix</span>
+            <span class="change-count">3 perbaikan</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">🔴</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[CRITICAL] Cascade Violation — Langsung Kick Saat Pertama Keluar</div>
+                <div class="change-item-desc">Di emulator (MEmu, BlueStacks) dan beberapa ROM custom, focus change listener dipanggil 3–4 kali berturut-turut dalam milidetik. Karena dialog flag belum sempat di-set, semua event masuk dan violation loncat dari 1 ke 3 → langsung terminate. Diperbaiki dengan cooldown 3 detik antar violation dan flag dipasang di baris pertama warning handler.</div>
+                <div class="change-item-files"><span class="file-tag">exam session module</span><span class="file-tag">violation engine</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🟠</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[HIGH] Fungsi Audio dan Monitoring Tidak Pernah Dipanggil</div>
+                <div class="change-item-desc">Fungsi volume maksimal dan monitoring sudah didefinisikan tapi tidak pernah dipanggil di inisialisasi sesi. Volume tidak pernah dinaikkan ke maksimal. Sudah diperbaiki — audio dan monitoring aktif segera setelah sesi ujian dimulai.</div>
+                <div class="change-item-files"><span class="file-tag">exam session module</span><span class="file-tag">audio engine</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🟡</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[MEDIUM] Layar Hasil Ujian Crash — Layout Tidak Ditemukan</div>
+                <div class="change-item-desc">Layar ringkasan hasil ujian memanggil layout yang tidak ada di project, menyebabkan crash setiap kali sesi ujian berakhir. Layout dibuat ulang lengkap dengan info waktu selesai, jumlah pelanggaran, dan tombol navigasi.</div>
+                <div class="change-item-files"><span class="file-tag">result screen</span><span class="file-tag">ui layer</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="change-group" data-type="break">
+          <div class="change-group-header">
+            <span class="change-type type-break">⚠ Removed / Breaking</span>
+            <span class="change-count">5 fitur dihapus</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">🗑️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">REMOVED — Enkripsi QR AES-256</div>
+                <div class="change-item-desc">Fitur enkripsi AES-256-CBC pada QR code dihapus. QR sekarang berisi URL biasa — lebih kompatibel, tidak butuh Admin Panel, dan tidak ada risiko mismatch format antara versi.</div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🗑️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">REMOVED — Kamera Live Depan</div>
+                <div class="change-item-desc">Fitur preview kamera depan di pojok layar selama ujian dihapus dari versi ini. Terlalu banyak overhead dan kompleksitas CameraX untuk use case client-only.</div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🗑️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">REMOVED — Monitor 62+ App Terlarang</div>
+                <div class="change-item-desc">Background service yang mengecek 62+ package name setiap 2 detik dihapus. Digantikan dengan Overlay Detection yang lebih tepat sasaran dan tidak menguras baterai.</div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🗑️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">REMOVED — Anti Screencast & VPN Detection</div>
+                <div class="change-item-desc">Deteksi monitor eksternal, Miracast, dan VPN aktif secara real-time dihapus. FLAG_SECURE + setHideOverlayWindows sudah lebih efektif mencegah mirroring.</div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🗑️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">REMOVED — Deteksi Siswa Pasif (Idle 3 Menit)</div>
+                <div class="change-item-desc">Fitur peringatan saat siswa tidak menyentuh layar selama 3 menit dihapus atas permintaan. Dianggap mengganggu alur ujian normal terutama saat siswa sedang membaca soal panjang.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="change-group" data-type="chore">
+          <div class="change-group-header">
+            <span class="change-type type-chore">🔧 Chore / Refactor</span>
+            <span class="change-count">3 perubahan</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">⚡</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Exam Session Module — Full Rewrite</div>
+                <div class="change-item-desc">Modul sesi ujian ditulis ulang bersih: hapus idle detection, hapus whitelist domain, semua view di-bind sekali via nullable property, audio player disederhanakan, network monitor cleanup saat sesi berakhir. Tidak ada dead code tersisa.</div>
+                <div class="change-item-files"><span class="file-tag">exam session module</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">📦</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Build Config — versionCode 10, versionName 1.1.0</div>
+                <div class="change-item-desc">Versi dinaikkan ke versionCode 10 dan versionName 1.1.0. Release build: debuggable false, minify + shrinkResources aktif. ProGuard strip semua debug log di release build.</div>
+                <div class="change-item-files"><span class="file-tag">build config</span><span class="file-tag">release pipeline</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🏫</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Info Sekolah — MAN 1 Lampung Barat</div>
+                <div class="change-item-desc">Semua referensi nama sekolah lama diganti ke "MAN 1 Lampung Barat" di seluruh modul aplikasi dan halaman website.</div>
+                <div class="change-item-files"><span class="file-tag">splash screen</span><span class="file-tag">string resources</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr class="version-divider">
+
     <!-- ════ 0.0.3 C ════ -->
-    <div class="version-block latest reveal" id="v0.0.3-C">
+    <div class="version-block reveal" id="v0.0.3-C">
       <div class="version-dot"></div>
       <div class="version-head">
         <div class="version-meta">
@@ -329,7 +502,6 @@ footer {
           <div class="version-title">"Super Mega Security Update &amp; App Pinning Gate"</div>
         </div>
         <div class="version-badges">
-          <span class="v-badge v-latest">● Latest</span>
           <span class="v-badge v-stable">Stable</span>
           <span class="v-badge v-major">Major Release</span>
         </div>

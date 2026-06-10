@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAN 1 Exam Browser — Browser Ujian CBT Aman</title>
-<meta name="description" content="Secure browser ujian CBT Android — screen pinning, 62+ app terlarang, kamera live, anti-VPN, enkripsi QR AES-256. Gratis untuk MAN 1 Lampung Barat.">
+<meta name="description" content="Secure browser ujian CBT Android — screen pinning, overlay detection, anti-copy, screenshot block, QR scanner. Client-side only, no server. Gratis untuk MAN 1 Lampung Barat.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -487,11 +487,114 @@ footer {
 .rv { opacity: 0; transform: translateY(16px); transition: opacity 0.55s ease, transform 0.55s ease; }
 .rv.in { opacity: 1; transform: none; }
 
-/* scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--b200); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--b300); }
+/* ── EXTRA ENHANCEMENTS ── */
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+  top: -100px; left: 50%; transform: translateX(-50%);
+  pointer-events: none; z-index: 0;
+}
+.hero { position: relative; }
+.badge {
+  animation: fadeUp 0.5s ease both;
+  box-shadow: 0 2px 12px rgba(37,99,235,0.12);
+}
+.fhero {
+  position: relative; overflow: hidden;
+}
+.fhero::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--b300), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.fhero:hover::after { opacity: 1; }
+.fhero.featured {
+  background: linear-gradient(160deg, #ffffff 0%, #f0f6ff 100%);
+}
+.why-card.good {
+  background: linear-gradient(160deg, #f8fbff 0%, #eff6ff 100%);
+}
+.s-n { animation: countUp 1s ease both; }
+@keyframes countUp { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform:none; } }
+
+/* ── HOW IT WORKS SECTION ── */
+.how-sec { background: var(--white); border-top: 1px solid var(--b100); padding: 76px 0; }
+.how-steps { display: flex; flex-direction: column; gap: 0; margin-top: 44px; position: relative; }
+.how-steps::before {
+  content: ''; position: absolute;
+  left: 23px; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(180deg, var(--b200) 0%, var(--b100) 100%);
+}
+.how-step {
+  display: flex; gap: 24px; align-items: flex-start;
+  padding: 0 0 36px 0; position: relative;
+}
+.how-step:last-child { padding-bottom: 0; }
+.how-num {
+  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+  background: var(--white); border: 2px solid var(--b200);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500;
+  color: var(--b600); position: relative; z-index: 1;
+  box-shadow: var(--shadow-sm); transition: all 0.2s;
+}
+.how-step:hover .how-num {
+  border-color: var(--b500); background: var(--b50);
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+}
+.how-content { padding-top: 12px; }
+.how-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+.how-desc { font-size: 13.5px; color: var(--muted); line-height: 1.7; max-width: 520px; }
+@media(max-width: 540px) {
+  .how-steps::before { left: 19px; }
+  .how-num { width: 40px; height: 40px; font-size: 12px; }
+}
+
+/* ── TRUST BADGES ── */
+.trust-strip {
+  background: var(--b900); padding: 20px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.trust-inner {
+  max-width: 1040px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 32px;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.7);
+  letter-spacing: 0.02em;
+}
+.trust-item .tick { color: #34D399; font-size: 14px; }
+
+/* ── IMPROVED DOWNLOAD ── */
+.dlsec {
+  background: linear-gradient(160deg, #0F172A 0%, #1E3A8A 100%) !important;
+  border-top: none !important;
+}
+.dlsec h2 { color: #fff; }
+.dlsec .p { color: rgba(255,255,255,0.65); }
+.dlsec .stag { color: #60A5FA; }
+.dlsec .stag::before { background: #60A5FA; }
+.meta { background: rgba(255,255,255,0.05) !important; border-color: rgba(255,255,255,0.12) !important; }
+.mi .ml { color: rgba(255,255,255,0.45) !important; }
+.mi .mv { color: #93C5FD !important; }
+.msep { background: rgba(255,255,255,0.12) !important; }
+.dlnote { color: rgba(255,255,255,0.35) !important; }
+
+/* ── FOOTER IMPROVEMENT ── */
+footer {
+  background: #0F172A !important;
+  border-top: 1px solid rgba(255,255,255,0.06) !important;
+}
+.flogo { color: #fff !important; }
+.flogo span { color: rgba(255,255,255,0.35) !important; }
+.flinks a { color: rgba(255,255,255,0.45) !important; }
+.flinks a:hover { color: #60A5FA !important; background: rgba(255,255,255,0.05) !important; }
+.fcred { color: rgba(255,255,255,0.25) !important; }
 </style>
 </head>
 <body>
@@ -514,6 +617,7 @@ footer {
       MAN 1 Exam Browser
     </a>
     <div class="links">
+      <a href="#cara-kerja">Cara Kerja</a>
       <a href="#fitur">Fitur</a>
       <a href="#about">Developer</a>
       <a href="changelog.html">Changelog</a>
@@ -526,21 +630,22 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-glow"></div>
   <div class="c">
-    <div class="badge"><span class="bdot"></span>v0.0.3C SUPER MEGA · Stable · 0 Bug Aktif</div>
+    <div class="badge"><span class="bdot"></span>v0.0.4A · Stable · 0 Bug Aktif</div>
     <h1>Ujian CBT yang<br>benar-benar <em>tidak bisa dicurangi</em></h1>
     <p class="hero-sub">Dikembangkan siswa MAN 1 Lampung Barat. Gratis, tanpa iklan — khusus untuk ujian yang bersih dan terpercaya.</p>
     <div class="hero-btns">
-      <a class="btn-p" href="https://www.mediafire.com/file/887y9504vmgc4d3/app-debug.apk/file" target="_blank">
+      <a class="btn-p" href="#download" target="_self">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        Download APK Gratis
+        Download APK v0.0.4A
       </a>
       <a class="btn-s" href="changelog.html">Lihat Changelog →</a>
     </div>
     <div class="stats rv">
-      <div class="s-cell"><span class="s-n">101</span><div class="s-l">Total Fitur</div></div>
-      <div class="s-cell"><span class="s-n">62+</span><div class="s-l">App Diblokir</div></div>
-      <div class="s-cell"><span class="s-n">99%</span><div class="s-l">Device Support</div></div>
+      <div class="s-cell"><span class="s-n">7</span><div class="s-l">Layer Keamanan</div></div>
+      <div class="s-cell"><span class="s-n">Android 7+</span><div class="s-l">Min Support</div></div>
+      <div class="s-cell"><span class="s-n">100%</span><div class="s-l">Client Side</div></div>
       <div class="s-cell"><span class="s-n">0</span><div class="s-l">Bug Aktif</div></div>
     </div>
   </div>
@@ -569,8 +674,8 @@ footer {
                 <div class="sp-cat">Sistem Ujian Berbasis Komputer</div>
                 <div class="sp-status" id="sp-status-txt">Memeriksa keamanan perangkat...</div>
                 <div class="sp-bar-wrap"><div class="sp-bar" id="sp-bar"></div></div>
-                <div class="sp-ver">v0.0.3C SUPER MEGA</div>
-                <div class="sp-cred">Zona Arjun · Ananda Raihan · Mtk Wajib Boys</div>
+                <div class="sp-ver">v0.0.4A</div>
+                <div class="sp-cred">Zona Arjun · Ananda Raihan · MAN 1 Lampung Barat</div>
               </div>
             </div>
             <!-- SCREEN 2: SCAN -->
@@ -582,7 +687,7 @@ footer {
                     <div class="a">MAN 1 Exam Browser</div>
                     <div class="b">MAN 1 Lampung Barat</div>
                   </div>
-                  <div class="sc2-ver">v0.0.3C SUPER MEGA</div>
+                  <div class="sc2-ver">v0.0.4A</div>
                 </div>
                 <div class="sc2-body">
                   <div class="sc2-label">Status Perangkat</div>
@@ -606,7 +711,7 @@ footer {
                   <div class="sc2-btn-primary" id="sc2-scan-btn" onclick="goToExam()">SCAN QR TOKEN</div>
                   <div class="sc2-btn-secondary" onclick="goToExam()">🔗  Ketik Link Manual</div>
                   <div class="sc2-btn-secondary" onclick="togglePin()">Kunci Layar (Screen Pinning)</div>
-                  <div class="sc2-credits">Zona Arjun · Ananda Raihan · Mtk Wajib Boys</div>
+                  <div class="sc2-credits">Zona Arjun · Ananda Raihan · MAN 1 Lampung Barat</div>
                 </div>
               </div>
             </div>
@@ -720,15 +825,72 @@ footer {
         </div>
         <div class="why-item">
           <div class="why-ico">🔐</div>
-          <div class="why-txt"><strong>QR terenkripsi AES-256</strong> — link ujian hanya bisa dibuka dari app ini, scanner lain tidak bisa</div>
+          <div class="why-txt"><strong>QR Scanner</strong> — scan QR code dari pengawas, langsung masuk ujian tanpa ketik URL</div>
         </div>
         <div class="why-item">
           <div class="why-ico">🛡️</div>
-          <div class="why-txt"><strong>62+ app diblokir</strong> real-time setiap 2 detik — termasuk semua browser, AI, dan sosial media</div>
+          <div class="why-txt"><strong>Overlay Detection</strong> — app yang menimpa layar (ChatGPT, Grammarly, floating browser) dideteksi dan diblokir sebelum ujian dimulai</div>
         </div>
         <div class="why-item">
           <div class="why-ico">📋</div>
-          <div class="why-txt"><strong>Clipboard auto-wipe</strong> — setiap kali ada teks di clipboard, langsung terhapus otomatis</div>
+          <div class="why-txt">Jawaban <strong>tidak bisa di-copy paste</strong> — JS injection blokir semua aksi seleksi dan clipboard</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip z">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="tick">✓</span> Client-side Only</div>
+    <div class="trust-item"><span class="tick">✓</span> No Server / No Database</div>
+    <div class="trust-item"><span class="tick">✓</span> No Tracking / No Ads</div>
+    <div class="trust-item"><span class="tick">✓</span> Open untuk Sekolah</div>
+    <div class="trust-item"><span class="tick">✓</span> Android 7.0+</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-sec z" id="cara-kerja">
+  <div class="c">
+    <div class="stag rv">Cara Kerja</div>
+    <h2 class="sh rv">Dari buka app<br>sampai ujian selesai.</h2>
+    <p class="ss rv">Alur yang dirancang simpel untuk siswa — ketat untuk pengawasan.</p>
+    <div class="how-steps">
+      <div class="how-step rv">
+        <div class="how-num">01</div>
+        <div class="how-content">
+          <div class="how-title">System Check Otomatis</div>
+          <div class="how-desc">Saat app dibuka, sistem langsung memeriksa: koneksi internet, status App Pinning, Bluetooth harus OFF, dan tidak ada overlay app aktif. Tombol MULAI dikunci sampai semua ✅.</div>
+        </div>
+      </div>
+      <div class="how-step rv">
+        <div class="how-num">02</div>
+        <div class="how-content">
+          <div class="how-title">Masuk via QR atau URL</div>
+          <div class="how-desc">Siswa scan QR dari kartu peserta atau input URL ujian secara manual. QR scanner mendukung kamera depan dan belakang. URL langsung divalidasi format HTTP/HTTPS.</div>
+        </div>
+      </div>
+      <div class="how-step rv">
+        <div class="how-num">03</div>
+        <div class="how-content">
+          <div class="how-title">Mode Aman Aktif</div>
+          <div class="how-desc">Begitu ujian dimulai: App Pinning aktif (tombol Home/Back/Recents diblokir), FLAG_SECURE mencegah screenshot, overlay window disembunyikan, volume dikunci maksimal, orientasi dikunci portrait.</div>
+        </div>
+      </div>
+      <div class="how-step rv">
+        <div class="how-num">04</div>
+        <div class="how-content">
+          <div class="how-title">Monitoring Selama Ujian</div>
+          <div class="how-desc">Setiap deteksi keluar dari app dicatat sebagai pelanggaran. Sistem 3-strike: peringatan 1 → peringatan terakhir → sesi dihentikan. Cooldown 3 detik mencegah false positive di semua device.</div>
+        </div>
+      </div>
+      <div class="how-step rv">
+        <div class="how-num">05</div>
+        <div class="how-content">
+          <div class="how-title">Selesai & Data Terhapus</div>
+          <div class="how-desc">Setelah ujian berakhir, semua data sesi dihapus otomatis: cache, history, cookies, WebStorage. Layar ringkasan menampilkan waktu selesai dan jumlah pelanggaran.</div>
         </div>
       </div>
     </div>
@@ -736,78 +898,78 @@ footer {
 </section>
 
 <!-- FEATURES -->
-<section id="fitur" class="fsec z">
-  <div class="c">
+<section id="fitur" class="fsec z">  <div class="c">
     <div class="stag rv">Fitur</div>
     <h2 class="sh rv">Berlapis-lapis.<br>Tanpa celah.</h2>
     <p class="ss rv">Setiap lapisan keamanan saling melengkapi — bahkan jika satu cara dicoba, lapisan lain sudah siap.</p>
     <div class="feat-heroes">
       <div class="fhero featured rv">
         <div class="fhero-head">
-          <div class="fhero-ico">🔐</div>
-          <div class="fhero-badge">Terbaru</div>
+          <div class="fhero-ico">🔒</div>
+          <div class="fhero-badge">Core</div>
         </div>
-        <div class="fhero-title">Enkripsi QR AES-256</div>
-        <div class="fhero-plain">Scan QR dengan kamera bawaan HP atau WhatsApp? Yang keluar cuma deretan huruf acak. Hanya app ini yang bisa membaca isinya.</div>
-        <div class="fhero-detail">AES-256-CBC · URL-safe Base64 · Admin Panel v3 web-based</div>
+        <div class="fhero-title">Screen Pinning + FLAG_SECURE</div>
+        <div class="fhero-plain">Tombol Home, Recents, dan Back tidak berfungsi. Screenshot dan screen recording diblokir penuh. Floating window Samsung/MIUI/OPPO otomatis disembunyikan.</div>
+        <div class="fhero-detail">startLockTask() · FLAG_SECURE · setHideOverlayWindows(true) Android 12+</div>
       </div>
       <div class="fhero featured rv">
         <div class="fhero-head">
+          <div class="fhero-ico">🔍</div>
+          <div class="fhero-badge">Baru v0.0.4A</div>
+        </div>
+        <div class="fhero-title">Overlay App Detection</div>
+        <div class="fhero-plain">System Check mendeteksi semua app non-sistem yang punya izin overlay aktif — ChatGPT, Grammarly, floating browser, screen mirror. Ujian diblokir sampai semua overlay dimatikan.</div>
+        <div class="fhero-detail">AppOpsManager · SYSTEM_ALERT_WINDOW scan · ACTION_MANAGE_OVERLAY_PERMISSION</div>
+      </div>
+      <div class="fhero rv">
+        <div class="fhero-head">
           <div class="fhero-ico">📷</div>
-          <div class="fhero-badge">Live</div>
+          <div class="fhero-badge">QR + URL</div>
         </div>
-        <div class="fhero-title">Kamera Live Depan</div>
-        <div class="fhero-plain">Preview kamera depan muncul di pojok layar selama ujian. Guru bisa keliling sambil memantau siapa yang melirik ke mana.</div>
-        <div class="fhero-detail">CameraX lifecycle-aware · Indikator ● REC berkedip · Auto-hidden jika tidak tersedia</div>
+        <div class="fhero-title">Dual Input Mode</div>
+        <div class="fhero-plain">Masuk ujian lewat scan QR code dari kartu peserta, atau ketik URL manual. QR scanner mendukung kamera depan dan belakang.</div>
+        <div class="fhero-detail">ZXing 4.3.0 · Switch kamera · URL validation · Langsung ke ExamBrowser</div>
       </div>
       <div class="fhero rv">
         <div class="fhero-head">
-          <div class="fhero-ico">🔒</div>
+          <div class="fhero-ico">⚠️</div>
+          <div class="fhero-badge">3-Strike</div>
         </div>
-        <div class="fhero-title">Screen Pinning</div>
-        <div class="fhero-plain">Tombol Home, Recents, dan Back tidak berfungsi. Siswa benar-benar tidak bisa keluar dari app selama ujian.</div>
-        <div class="fhero-detail">startLockTask() Android API · Deteksi status real-time · Auto-unpin saat selesai</div>
-      </div>
-      <div class="fhero rv">
-        <div class="fhero-head">
-          <div class="fhero-ico">🛡️</div>
-          <div class="fhero-badge">62+ App</div>
-        </div>
-        <div class="fhero-title">Monitor App Terlarang</div>
-        <div class="fhero-plain">Background service cek tiap 2 detik — kalau ada app terlarang terbuka, langsung tercatat sebagai pelanggaran. Semua browser, AI, sosmed, VPN.</div>
-        <div class="fhero-detail">9 kategori · 62+ package · WakeLock + START_STICKY · VPN debounce 30 detik</div>
+        <div class="fhero-title">Sistem Pelanggaran Berlapis</div>
+        <div class="fhero-plain">3× pelanggaran = sesi dihentikan otomatis. Setiap keluar dari app, klik tombol sistem, atau focus loss terdeteksi — dicatat, diberi peringatan, dan disuarakan.</div>
+        <div class="fhero-detail">onWindowFocusChanged · 3s cooldown · Violation sound · FinishActivity report</div>
       </div>
     </div>
     <div class="feat-mini">
       <div class="fmini rv">
         <div class="fmini-ico">⚠️</div>
         <div class="fmini-t">Sistem Pelanggaran</div>
-        <div class="fmini-d">3× pelanggaran = kick otomatis dengan countdown 5 detik. 8 trigger terdeteksi: Back, Recents, split screen, dan lainnya.</div>
+        <div class="fmini-d">3× pelanggaran = kick otomatis. Cooldown 3 detik antar pelanggaran, mencegah false positive di emulator.</div>
       </div>
       <div class="fmini rv">
         <div class="fmini-ico">🌐</div>
         <div class="fmini-t">WebView Aman</div>
-        <div class="fmini-d">Hanya 9 domain Google yang diizinkan. Blokir copy/paste, klik kanan, dan download. Screenshot pun diblokir.</div>
+        <div class="fmini-d">Semua URL HTTP/HTTPS bisa dibuka — Google Forms, Quizizz, Kahoot, dll. Blokir copy/paste, klik kanan, dan drag.</div>
       </div>
       <div class="fmini rv">
-        <div class="fmini-ico">🔍</div>
-        <div class="fmini-t">Integrity Check</div>
-        <div class="fmini-d">Cek root, ADB, emulator, dan dev mode saat app dibuka. Perangkat yang tidak aman langsung ditolak.</div>
+        <div class="fmini-ico">🔵</div>
+        <div class="fmini-t">Bluetooth Check</div>
+        <div class="fmini-d">Bluetooth wajib OFF sebelum ujian dimulai. BroadcastReceiver deteksi perubahan state secara real-time.</div>
       </div>
       <div class="fmini rv">
-        <div class="fmini-ico">⌨️</div>
-        <div class="fmini-t">Anti-Custom Keyboard</div>
-        <div class="fmini-d">Hanya keyboard sistem yang diizinkan. Keyboard pihak ketiga yang bisa logging ketukan otomatis diblokir.</div>
+        <div class="fmini-ico">📱</div>
+        <div class="fmini-t">Kunci Orientasi</div>
+        <div class="fmini-d">Layar dikunci portrait 3 lapis — Manifest, programatik, dan re-enforce tiap focus change. ROM custom tidak bisa rotate.</div>
       </div>
       <div class="fmini rv">
-        <div class="fmini-ico">♿</div>
-        <div class="fmini-t">Accessibility Blocker</div>
-        <div class="fmini-d">Blokir app yang pakai Accessibility Service untuk baca isi layar atau simulasi tap secara otomatis.</div>
+        <div class="fmini-ico">📸</div>
+        <div class="fmini-t">Screenshot Block</div>
+        <div class="fmini-d">FLAG_SECURE blokir screenshot di semua versi Android. Android 14+ punya ScreenCaptureCallback untuk deteksi bypass.</div>
       </div>
       <div class="fmini rv">
-        <div class="fmini-ico">🖥️</div>
-        <div class="fmini-t">Anti Screencast & VPN</div>
-        <div class="fmini-d">Deteksi monitor eksternal, Miracast, dan VPN aktif secara real-time. Dicatat sebagai pelanggaran jika terdeteksi.</div>
+        <div class="fmini-ico">🧼</div>
+        <div class="fmini-t">Auto Clear Data</div>
+        <div class="fmini-d">Cache, history, cookies, dan WebStorage dihapus otomatis setiap sesi berakhir. Tidak ada jejak ujian tersisa.</div>
       </div>
     </div>
   </div>
@@ -880,18 +1042,18 @@ footer {
     <h2 style="text-align:center">Siap digunakan<br>di sekolah Anda</h2>
     <p class="p">Gratis. Tidak ada iklan, tidak ada tracking. Semua data tersimpan lokal di perangkat.</p>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-      <a class="btn-p" href="https://www.mediafire.com/file/887y9504vmgc4d3/app-debug.apk/file" target="_blank" style="font-size:15px;padding:14px 28px">
+      <a class="btn-p" href="#" target="_self" style="font-size:15px;padding:14px 28px">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        Download APK v0.0.3C SUPER MEGA
+        Download APK v0.0.4A
       </a>
       <a class="btn-s" href="changelog.html" style="font-size:15px;padding:13px 22px">Lihat Changelog →</a>
     </div>
     <div class="meta rv">
-      <div class="mi"><div class="ml">Versi</div><div class="mv">0.0.3C SUPER MEGA</div></div>
+      <div class="mi"><div class="ml">Versi</div><div class="mv">0.0.4A</div></div>
       <div class="msep"></div>
-      <div class="mi"><div class="ml">Min Android</div><div class="mv">8.0 (API 26)</div></div>
+      <div class="mi"><div class="ml">Min Android</div><div class="mv">7.0 (API 24)</div></div>
       <div class="msep"></div>
-      <div class="mi"><div class="ml">Coverage</div><div class="mv">~99% device</div></div>
+      <div class="mi"><div class="ml">versionCode</div><div class="mv">10</div></div>
       <div class="msep"></div>
       <div class="mi"><div class="ml">Bug Aktif</div><div class="mv">0</div></div>
     </div>
@@ -903,12 +1065,13 @@ footer {
 <footer class="z">
   <div class="flogo">MAN 1 Exam Browser <span>— MAN 1 Lampung Barat</span></div>
   <div class="flinks">
+    <a href="#cara-kerja">Cara Kerja</a>
     <a href="#fitur">Fitur</a>
     <a href="#about">Developer</a>
     <a href="changelog.html">Changelog</a>
-    <a href="https://www.mediafire.com/file/tmky2j24q858ird/MAN1Exam_v0.0.3A.apk/file" target="_blank">Download</a>
+    <a href="#download">Download</a>
   </div>
-  <div class="fcred">Zona Arjun &amp; Ananda Raihan · Mtk wajib boys</div>
+  <div class="fcred">Zona Arjun &amp; Ananda Raihan · MAN 1 Lampung Barat · 2025</div>
 </footer>
 
 </div>
